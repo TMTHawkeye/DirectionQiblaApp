@@ -133,7 +133,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
-        android:background="@color/theme"/>
+        android:background="@color/white"/>
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

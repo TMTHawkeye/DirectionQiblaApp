@@ -19,14 +19,11 @@ class PrayerTimeSettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding=FragmentPrayerTimeSettingsBinding.inflate(layoutInflater)
-        val prayerName = arguments?.getString("prayerName")
+        val prayerData = arguments?.getSerializable("prayerData") as Prayer
 
         var prayerNotifList=getPrayerNotificationList()
         binding.prayersRV.layoutManager=LinearLayoutManager(requireContext())
-        binding.prayersRV.adapter=PrayerSettingsAdapter(requireContext(),prayerNotifList)
-
-
-
+        binding.prayersRV.adapter=PrayerSettingsAdapter(requireContext(),prayerNotifList,prayerData)
 
 
 //        binding.textViewPrayerName.text = prayerName

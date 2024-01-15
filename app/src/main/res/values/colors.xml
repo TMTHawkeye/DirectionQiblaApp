@@ -18,6 +18,7 @@
     <color name="bottom_nav_icon_unselected">#424141</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="green">#3AAF59</color>
+    <color name="blue">#034888</color>
 
     <color name="main_background">#F8FCFF</color>
 
@@ -34,4 +35,8 @@
             <item android:state_checked="true" android:color="#80FF80" />
         </selector>
     </color>
+
+    <style name="calenderdate">
+        <item name="colorAccent">@color/theme</item>
+    </style>
 </resources>

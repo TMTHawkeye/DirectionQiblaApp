@@ -37,7 +37,7 @@ class PrayersAdapter(var ctxt: Context, var prayersData: ArrayList<Prayer>) : Re
 
             // Create a bundle to pass data to the fragment
             val bundle = Bundle()
-            bundle.putString("prayerName", prayersData?.get(position)?.name)
+            bundle.putSerializable("prayerData", prayersData?.get(position))
 
             // Replace the current fragment with PrayerSettingsFragment
             val prayerSettingsFragment = PrayerTimeSettingsFragment()

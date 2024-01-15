@@ -11,12 +11,14 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.directionqiblaapp.Adapters.PrayersAdapter
+import com.example.directionqiblaapp.R
 import com.example.directionqiblaapp.ViewModels.PrayerTimesViewModel
 import com.example.directionqiblaapp.databinding.FragmentTimingsBinding
 import com.example.directionqiblaapp.retrofit.Resources
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.Serializable
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -33,26 +35,15 @@ class TimingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding= FragmentTimingsBinding.inflate(layoutInflater)
+        binding = FragmentTimingsBinding.inflate(layoutInflater)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         requestLocationUpdates()
         return binding.root
     }
 
-    private fun convertTo12HourFormat(time24: String?): String {
-        val dateFormat24 = SimpleDateFormat("HH:mm", Locale.getDefault())
-        val dateFormat12 = SimpleDateFormat("hh:mm a", Locale.getDefault())
 
-        return try {
-            val date = dateFormat24.parse(time24)
-            dateFormat12.format(date)
-        } catch (e: ParseException) {
-            Log.e("PrayersTimeFragment", "Error converting time", e)
-            time24 ?: ""
-        }
-    }
-
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun observePrayersTimimgs() {
         prayerTimesViewModel.prayerTimes.observe(viewLifecycleOwner, Observer {
             when (it) {
@@ -72,29 +63,40 @@ class TimingsFragment : Fragment() {
                     )
                     val prayersList = ArrayList<Prayer>()
                     val prayers = it.data?.data?.timings
-                    prayersList.add(Prayer("Fajar", prayers?.Fajr ?: "6:00 AM"))
-                    prayersList.add(Prayer("Duhar", prayers?.Dhuhr ?: "6:00 AM"))
-                    prayersList.add(Prayer("Asar", prayers?.Asr ?: "6:00 AM"))
-                    prayersList.add(Prayer("Maghrib", prayers?.Maghrib ?: "6:00 AM"))
-                    prayersList.add(Prayer("Isha", prayers?.Isha ?: "6:00 AM"))
-
-                    val remainingTimePrayer = getRemainingTimeAndNameForNextPrayer(prayersList)
-
-                    remainingTimePrayer?.let { (prayerName, remainingTime) ->
-                        Log.d(
-                            "PrayerTimeFragment",
-                            "Next prayer: $prayerName in $remainingTime"
+                    val prayerNotification = PrayerNotification(
+                        "Beep", requireContext().getDrawable(
+                            R.drawable.mute_icon
+                        ), false
+                    )
+                    prayersList.add(Prayer("Fajar", prayers?.Fajr ?: "6:00 AM", prayerNotification))
+                    prayersList.add(
+                        Prayer(
+                            "Duhar",
+                            prayers?.Dhuhr ?: "6:00 AM",
+                            prayerNotification
                         )
-
-                        val tt = convertTo12HourFormat(remainingTime)
-                        binding.comingPrayerId.text = "$prayerName prayer in $tt"
-                        // Use prayerName and remainingTime as needed
-                    } ?: Log.d("PrayerTimeFragment", "No upcoming prayer found")
-
+                    )
+                    prayersList.add(Prayer("Asar", prayers?.Asr ?: "6:00 AM", prayerNotification))
+                    prayersList.add(
+                        Prayer(
+                            "Maghrib",
+                            prayers?.Maghrib ?: "6:00 AM",
+                            prayerNotification
+                        )
+                    )
+                    prayersList.add(Prayer("Isha", prayers?.Isha ?: "6:00 AM", prayerNotification))
 
                     binding.prayersRV.layoutManager = LinearLayoutManager(requireContext())
                     binding.prayersRV.adapter = PrayersAdapter(requireContext(), prayersList)
 
+                    val nextPrayer = getNextPrayerTime(prayersList)
+                    if (nextPrayer != null) {
+                        Log.d("Prayers_Data", "Next prayer: ${nextPrayer.name} at ${nextPrayer.time}")
+                        binding.comingPrayerId.text="${nextPrayer?.name} prayer in ${nextPrayer?.time}"
+                    } else {
+                        Log.d("Prayers_Data", "No upcoming prayer times found.")
+                        binding.comingPrayerId.text="No upcoming prayer times found"
+                    }
                 }
 
 //                else -> {}
@@ -102,12 +104,45 @@ class TimingsFragment : Fragment() {
         })
     }
 
+
+
+    private fun getNextPrayerTime(prayersList: List<Prayer>): Prayer? {
+        val currentTimeMillis = System.currentTimeMillis()
+        val dateFormat12 = SimpleDateFormat("hh:mm a", Locale.getDefault())
+        val formattedTime12 = dateFormat12.format(currentTimeMillis)
+
+        for (prayer in prayersList) {
+            val prayerTimeFormatted = convertTo12HourFormat(prayer.time)
+            Log.d("TAG_prayer", "getNextPrayerTime: $prayerTimeFormatted and $formattedTime12")
+
+            // Parse time strings to Date objects for proper comparison
+            val formattedTimeDate = dateFormat12.parse(formattedTime12)
+            val prayerTimeDate = dateFormat12.parse(prayerTimeFormatted)
+
+            // Compare Date objects
+            if (formattedTimeDate.before(prayerTimeDate)) {
+                return prayer
+            }
+        }
+
+        return null
+    }
+
+    private fun convertTo12HourFormat(time: String): String {
+        val inputFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+        val date = inputFormat.parse(time)
+        return outputFormat.format(date)
+    }
+
+
+
     @SuppressLint("MissingPermission")
     private fun requestLocationUpdates() {
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location: Location? ->
-                binding.prayersRV.visibility=View.VISIBLE
-                binding.locationPermissionId.visibility=View.GONE
+                binding.prayersRV.visibility = View.VISIBLE
+                binding.locationPermissionId.visibility = View.GONE
                 // Got last known location
                 location?.let {
                     val latitude = it.latitude
@@ -124,8 +159,8 @@ class TimingsFragment : Fragment() {
             }
             .addOnFailureListener {
                 Log.d("data", "onResponse:${it.message}")
-                binding.prayersRV.visibility=View.GONE
-                binding.locationPermissionId.visibility=View.VISIBLE
+                binding.prayersRV.visibility = View.GONE
+                binding.locationPermissionId.visibility = View.VISIBLE
             }
     }
 
@@ -135,45 +170,6 @@ class TimingsFragment : Fragment() {
         return dateFormat.format(currentDate)
     }
 
-    private fun getRemainingTimeAndNameForNextPrayer(prayersList: List<Prayer>): Pair<String, String>? {
-        val currentTime = System.currentTimeMillis()
-        val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault())
-
-        for (prayer in prayersList) {
-            try {
-                val prayerTime = sdf.parse(prayer.time)?.time ?: 0
-
-                Log.d(
-                    "PrayerTimeFragment",
-                    "Current Time: $currentTime and Prayer Time: $prayerTime"
-                )
-
-                val timeDifference = prayerTime - currentTime
-
-                Log.d("PrayerTimeFragment", "Time Difference: $timeDifference milliseconds")
-
-                if (timeDifference > 0) {
-                    val remainingTime = formatMillisToHHMM(timeDifference)
-                    Log.d("PrayerTimeFragment", "Remaining time: $remainingTime")
-                    return Pair(prayer.name, remainingTime)
-                } else {
-                    Log.d("PrayerTimeFragment", "Prayer time has already passed for the day")
-                    val nextDayPrayerTime = sdf.parse(prayersList[0].time)?.time ?: 0
-                    val nextDayTimeDifference = currentTime - nextDayPrayerTime
-
-                    val remainingTimeNextDay = formatMillisToHHMM(nextDayTimeDifference)
-                    Log.d("PrayerTimeFragment", "Next day remaining time: $remainingTimeNextDay")
-                    return Pair(prayersList[0].name, remainingTimeNextDay)
-                }
-
-
-            } catch (e: ParseException) {
-                Log.e("PrayerTimeFragment", "Error parsing prayer time", e)
-            }
-        }
-
-        return null
-    }
 
     private fun formatMillisToHHMM(millis: Long): String {
         val isNegative = millis < 0
@@ -190,4 +186,6 @@ class TimingsFragment : Fragment() {
 
 }
 
-class Prayer(var name: String, var time: String)
+class Prayer(
+    var name: String, var time: String, var selectedNotification: PrayerNotification
+) :Serializable

@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/event_name_id"
         android:text="@string/dummy_event"
+        android:textStyle="bold"
         android:textSize="@dimen/_12sdp"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,18 +23,38 @@
         android:id="@+id/event_date_id"
         android:text="@string/dummy_event"
         android:textSize="@dimen/_9sdp"
-        android:textColor="@color/grey"
+        android:textColor="@color/blue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/event_name_id"
         android:layout_marginTop="@dimen/_10sdp"/>
 
     <TextView
+        android:id="@+id/date_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/dummy_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:textColor="@color/theme"/>
+        android:textColor="@color/blue"/>
+
+    <ImageView
+        android:id="@+id/delete_item_id"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/delete_card_svg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_id"/>
+
+    <View
+        android:id="@+id/myRectangleView"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/_10ssp"
+        android:background="@color/theme"
+        android:layout_marginVertical="@dimen/_20ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/delete_item_id"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
