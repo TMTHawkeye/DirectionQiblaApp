@@ -68,7 +68,6 @@ class OnBoardingActivity3 : AppCompatActivity() {
                 }else{
                     displayLocationSettingsRequest(this@OnBoardingActivity3)
                 }
-
             }
         } else {
         }

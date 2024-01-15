@@ -64,4 +64,23 @@
     <string name="share_app">Share App</string>
     <string name="more_apps">More Apps</string>
     <string name="privacy_policy">Privacy Policy</string>
+    <string name="location_permission_required">Location Permission Required</string>
+    <string name="don_t_allow">DON\'T ALLOW</string>
+    <string name="allow">ALLOW</string>
+    <string name="location_permission_desc">Need location permission for accurate prayer times and qibla direction.</string>
+    <string name="notification_permission_required">Notification Permission Required</string>
+    <string name="notification_permission_desc">Need notification permission to get notification at prayer times.</string>
+    <string name="visit_privacy">Do you want to visit privacy policy?</string>
+    <string name="delete">Delete</string>
+    <string name="delete_dhikr_desc">Do you want to delete a Dhikr?</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+    <string name="save">Save</string>
+    <string name="save_dhikr">Do you want to save a Dhikr?</string>
+    <string name="more_apps_desc">Do you want to visit More Apps?</string>
+    <string name="share_app_desc">Do you want to share this App?</string>
+    <string name="reset_dhikr">Reset Dhikr</string>
+    <string name="reset_dhikr_desc">Are you sure you want to reset?</string>
+    <string name="delete_event">Delete Event</string>
+    <string name="delete_event_desc">Do you want to delete event from a list?</string>
 </resources>
