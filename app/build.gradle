@@ -33,6 +33,12 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+    bundle {
+        language {
+            enableSplit = false
+        }
+    }
 }
 
 dependencies {
@@ -97,6 +103,8 @@ dependencies {
     implementation 'jp.wasabeef:blurry:4.0.1'
 
     implementation 'com.aminography:primecalendar:1.7.0'
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0'
 
+    implementation 'com.zeugmasolutions.localehelper:locale-helper-android:1.5.1'
 
 }

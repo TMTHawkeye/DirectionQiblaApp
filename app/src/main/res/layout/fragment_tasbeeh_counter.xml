@@ -26,7 +26,7 @@
             android:layout_gravity="center"
             android:background="?attr/selectableItemBackground"
             android:padding="16dp"
-            android:text="Add Dhikr"
+            android:text="@string/add_dhikr"
             android:textColor="@color/theme"
             android:textSize="18sp"
             android:textStyle="bold" />

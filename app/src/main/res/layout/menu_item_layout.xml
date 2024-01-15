@@ -9,13 +9,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_launcher_foreground"
-        android:layout_marginBottom="4dp"/>
+        android:layout_marginBottom="@dimen/_5sdp"/>
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Title"
+        android:textColor="@color/theme"
         android:textSize="12sp" />
 
 </LinearLayout>

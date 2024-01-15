@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.TimingsFragment">
 
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/next_prayer_card_id"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_70sdp"
         android:layout_marginHorizontal="@dimen/_50sdp"
         android:layout_marginTop="@dimen/_30sdp"
         app:cardCornerRadius="@dimen/_10sdp"
-        app:layout_constraintTop_toBottomOf="@+id/constraint_toolbar_id">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,14 +30,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="Coming Prayer in the List"
+                android:text="@string/coming_prayer_in_the_list"
                 android:textColor="@color/white"
                 android:gravity="center_horizontal"
-                android:textSize="@dimen/_14sdp"/>
+                android:textSize="@dimen/_10sdp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -46,7 +45,7 @@
         android:layout_marginTop="@dimen/_75sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraint_toolbar_id">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -79,4 +78,4 @@
     </androidx.cardview.widget.CardView>
 
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

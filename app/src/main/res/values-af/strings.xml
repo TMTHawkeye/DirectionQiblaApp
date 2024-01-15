@@ -1,0 +1,67 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <string name="app_name">Qibla-rigting</string>
+    <string name="prayer_times">Gebedstye</string>
+    <string name="dummy_location">142 142, Rawalpindi, Pakistan</string>
+    <string name="dummy_ptrayer">Dagbreek</string>
+    <string name="dummy_prayer_time">05:27</string>
+    <string name="tasbigCounter">Tasbih-toonbank</string>
+    <string name="calender">Kalender</string>
+    <string name="dummy_date">12 Desember 2023</string>
+    <string name="dummy_event">Shab-e-Miraj</string>
+    <string name="navigation_drawer_open">oop_laai</string>
+    <string name="navigation_drawer_close">sluit_laai</string>
+    <string name="onborading_tasbeeh_desc">Die gebruik van \'n tasbih-toonbank help individue om op hul gebede te fokus en \'n telling van hul herhalings te handhaaf. Die daad om by tasbeeh betrokke te raak, word gesien as \'n manier om Allah in die alledaagse lewe te onthou en nader te kom.</string>
+
+    <style name="CalendarDateText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="CalendarWeekDayText">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+    <string name="title_activity_events_bottom_sheet">Gebeurtenisse BottomSheet</string>
+    <string name="title_home">Tuis</string>
+    <string name="title_prayer">Gebede</string>
+    <string name="title_count">Tel</string>
+    <string name="title_names">Name</string>
+
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Kennisgewings</string>
+    <string name="add_new_event">Voeg nuwe gebeurtenis by</string>
+    <string name="add_dhikr">Voeg Dhikr by</string>
+    <string name="event_name_hint">Gebeurtenis naam*</string>
+    <string name="dhikr_name_hint">Dhikr naam*</string>
+    <string name="typenote_hint">Tik die nota hier...</string>
+    <string name="date_hint">Datum</string>
+    <string name="add_custom_limit_hint">Voeg pasgemaakte limiet by</string>
+    <string name="starttime">Begin Tyd</string>
+    <string name="endtime">Eind tyd</string>
+    <string name="create_event">Skep gebeurtenis</string>
+    <string name="confirm">Bevestig</string>
+    <string name="hijri">Hijri</string>
+    <string name="locked">Gesluit</string>
+    <string name="onboarding_1_description">Vind die Qibla, waar jy ook al is. Dit is so maklik om te gebruik. Dit is nie nodig om jou ligging handmatig in te voer nie. Die ingeboude kompas wys jou die rigting na Mekka vir vereiste gebed.</string>
+    <string name="permission_required">Plektoestemming word vereis om toegang tot die gebedelys te verkry</string>
+
+    <string name="language_header">Tale</string>
+    <string name="onborading_salat_reminder_desc">Vind die Qibla, waar jy ook al is. Dit is so maklik om te gebruik. Dit is nie nodig om jou ligging handmatig in te voer nie. Die ingeboude kompas wys jou die rigting na Mekka vir vereiste gebed.</string>
+    <string name="salat_reminder">Slaai Herinnering</string>
+    <string name="tasbih_counter">Tasbih-toonbank</string>
+    <string name="no_date_found">Geen datum gevind nie</string>
+    <string name="no_location_found">Geen ligging gevind nie</string>
+    <string name="prayer_notification_status">Gebedskennisgewingstatus</string>
+    <string name="notification_settings">Kennisgewinginstellings</string>
+    <string name="coming_prayer_in_the_list">Komende Gebed in die Lys</string>
+    <string name="hijri_date">Hijri Datum</string>
+    <string name="events">Gebeurtenisse</string>
+    <string name="qibla_ndirection">Qibla\nRigte</string>
+    <string name="remove_ads">Verwyder advertensies</string>
+    <string name="languages">Tale</string>
+    <string name="calender_events">Kalender/Gebeure</string>
+    <string name="share_app">Deel App</string>
+    <string name="more_apps">Meer apps</string>
+    <string name="privacy_policy">Privaatheidsbeleid</string>
+</resources>

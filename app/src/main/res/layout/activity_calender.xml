@@ -98,6 +98,7 @@
                 >
                 <TextView
                     android:id="@+id/hijridate"
+                    android:text="@string/hijri_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -105,6 +106,7 @@
                     android:textSize="@dimen/_12sdp"
                     />
                 <TextView
+                    android:text="@string/dummy_date"
                     android:id="@+id/georgedate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -141,7 +143,7 @@
         android:id="@+id/events_heading_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Events"
+        android:text="@string/events"
         android:textStyle="bold"
         android:textSize="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_10sdp"

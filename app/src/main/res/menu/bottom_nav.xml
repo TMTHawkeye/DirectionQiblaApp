@@ -4,28 +4,32 @@
 
     <item
         android:id="@+id/Qibla"
-        android:title="Home"
+        android:title="@string/title_home"
         android:icon="@drawable/home_selected_icon"
+        android:iconTint="@color/theme"
         app:actionLayout="@layout/menu_item_layout"
         />
 
     <item
         android:id="@+id/Prayers"
-        android:title="Prayers"
+        android:title="@string/prayer_times"
         android:icon="@drawable/prayers_unselected_icon"
+        android:iconTint="@color/theme"
         app:actionLayout="@layout/menu_item_layout"
         />
 
     <item
         android:id="@+id/Tasbeeh"
-        android:title="Count"
+        android:title="@string/title_count"
+        android:iconTint="@color/theme"
         android:icon="@drawable/unselected_tasbeeh_icon"
         app:actionLayout="@layout/menu_item_layout"
         />
 
     <item
         android:id="@+id/Names"
-        android:title="Names"
+        android:title="@string/title_names"
+        android:iconTint="@color/theme"
         android:icon="@drawable/names_unselected_icon__2_"
         app:actionLayout="@layout/menu_item_layout"
         />

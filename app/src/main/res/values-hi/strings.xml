@@ -1,0 +1,67 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <string name="app_name">किबला दिशा</string>
+    <string name="prayer_times">प्रार्थना का समय</string>
+    <string name="dummy_location">142,142, रावलपिंडी, पाकिस्तान</string>
+    <string name="dummy_ptrayer">भोर</string>
+    <string name="dummy_prayer_time">सुबह 5:27 बजे</string>
+    <string name="tasbigCounter">तस्बीह काउंटर</string>
+    <string name="calender">कैलेंडर</string>
+    <string name="dummy_date">12 दिसंबर, 2023</string>
+    <string name="dummy_event">Shab-e-Miraj</string>
+    <string name="navigation_drawer_open">open_drawer</string>
+    <string name="navigation_drawer_close">बंद_दराज</string>
+    <string name="onborading_tasbeeh_desc">तस्बीह काउंटर का उपयोग करने से व्यक्तियों को अपनी प्रार्थनाओं पर ध्यान केंद्रित करने और उनकी पुनरावृत्ति की गिनती बनाए रखने में मदद मिलती है। तस्बीह में शामिल होने की क्रिया को रोजमर्रा की जिंदगी में अल्लाह को याद करने और उसके करीब आने के एक तरीके के रूप में देखा जाता है।</string>
+
+    <style name="CalendarDateText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="CalendarWeekDayText">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+    <string name="title_activity_events_bottom_sheet">इवेंटबॉटमशीट</string>
+    <string name="title_home">घर</string>
+    <string name="title_prayer">प्रार्थना</string>
+    <string name="title_count">गिनती करना</string>
+    <string name="title_names">नाम</string>
+
+    <string name="title_dashboard">डैशबोर्ड</string>
+    <string name="title_notifications">सूचनाएं</string>
+    <string name="add_new_event">नया ईवेंट जोड़ें</string>
+    <string name="add_dhikr">Add Dhikr</string>
+    <string name="event_name_hint">घटना नाम*</string>
+    <string name="dhikr_name_hint">Dhikr name*</string>
+    <string name="typenote_hint">नोट यहां टाइप करें...</string>
+    <string name="date_hint">तारीख</string>
+    <string name="add_custom_limit_hint">कस्टम सीमा जोड़ें</string>
+    <string name="starttime">समय शुरू</string>
+    <string name="endtime">अंत समय</string>
+    <string name="create_event">कार्यक्रम बनाएँ</string>
+    <string name="confirm">पुष्टि करना</string>
+    <string name="hijri">हिजरी</string>
+    <string name="locked">बंद</string>
+    <string name="onboarding_1_description">आप जहां भी हों, किबला का पता लगाएं। इसका उपयोग करना बहुत आसान है। अपना स्थान मैन्युअल रूप से दर्ज करने की कोई आवश्यकता नहीं है। कंपास में निर्मित आपको आवश्यक प्रार्थना के लिए मक्का की दिशा दिखाता है।</string>
+    <string name="permission_required">प्रार्थना सूची तक पहुँचने के लिए स्थान की अनुमति आवश्यक है</string>
+
+    <string name="language_header">बोली</string>
+    <string name="onborading_salat_reminder_desc">आप जहां भी हों, किबला का पता लगाएं। इसका उपयोग करना बहुत आसान है। अपना स्थान मैन्युअल रूप से दर्ज करने की कोई आवश्यकता नहीं है। कंपास में निर्मित आपको आवश्यक प्रार्थना के लिए मक्का की दिशा दिखाता है।</string>
+    <string name="salat_reminder">सलाद अनुस्मारक</string>
+    <string name="tasbih_counter">तस्बीह काउंटर</string>
+    <string name="no_date_found">कोई तारीख़ नहीं मिली</string>
+    <string name="no_location_found">कोई स्थान नहीं मिला</string>
+    <string name="prayer_notification_status">प्रार्थना अधिसूचना स्थिति</string>
+    <string name="notification_settings">अधिसूचना सेटिंग्स</string>
+    <string name="coming_prayer_in_the_list">सूची में आने वाली प्रार्थना</string>
+    <string name="hijri_date">हिजरी तारीख</string>
+    <string name="events">आयोजन</string>
+    <string name="qibla_ndirection">किबला\nदिशा</string>
+    <string name="remove_ads">विज्ञापन हटाएँ</string>
+    <string name="languages">बोली</string>
+    <string name="calender_events">कैलेंडर/घटनाएँ</string>
+    <string name="share_app">ऐप शेयर करें</string>
+    <string name="more_apps">और ऐप</string>
+    <string name="privacy_policy">गोपनीयता नीति</string>
+</resources>

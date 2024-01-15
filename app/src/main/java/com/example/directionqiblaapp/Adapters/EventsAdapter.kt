@@ -27,6 +27,7 @@ class EventsAdapter(val ctxt: Context) : RecyclerView.Adapter<EventsAdapter.view
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
         holder.binding.eventNameId.text=eventList.get(position)?.eventName
         holder.binding.eventDateId.text=eventList.get(position)?.eventDate
+        holder.binding.dateId.text=eventList.get(position)?.eventAddedDate
 
         holder.binding.deleteItemId.setOnClickListener {
             eventList.removeAt(position)

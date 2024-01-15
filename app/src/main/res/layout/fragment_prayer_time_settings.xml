@@ -28,7 +28,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="Notification Settings"
+                android:text="@string/notification_settings"
                 android:textColor="@color/white"
                 android:gravity="center_horizontal"
                 android:textSize="@dimen/_14sdp"/>

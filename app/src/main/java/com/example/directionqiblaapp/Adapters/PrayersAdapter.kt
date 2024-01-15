@@ -2,6 +2,7 @@ package com.example.directionqiblaapp.Adapters
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +12,7 @@ import com.example.directionqiblaapp.Fragments.Prayer
 import com.example.directionqiblaapp.R
 import com.example.directionqiblaapp.databinding.ItemPrayerBinding
 
-class PrayersAdapter(var ctxt: Context, var prayersData: ArrayList<Prayer>) : RecyclerView.Adapter<PrayersAdapter.viewHolder>() {
+class PrayersAdapter(var ctxt: Context, var prayersData: ArrayList<Prayer>, val nextPrayerData: Prayer?) : RecyclerView.Adapter<PrayersAdapter.viewHolder>() {
     lateinit var binding:ItemPrayerBinding
 
     inner class viewHolder(var binding: ItemPrayerBinding) : RecyclerView.ViewHolder(binding.root)
@@ -29,6 +30,14 @@ class PrayersAdapter(var ctxt: Context, var prayersData: ArrayList<Prayer>) : Re
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
         holder.binding.prayerNameId.text=prayersData[position].name
         holder.binding.prayerTimeValue.text=prayersData[position].time
+
+
+        // Check if the current item is the next prayer time
+        if (isNextPrayerTime(position)) {
+            holder.binding.root.setBackgroundResource(R.color.light_grey)
+        } else {
+            holder.binding.root.setBackgroundResource(android.R.color.transparent)
+        }
 
         // Set click listener for settings icon
         holder.binding.settingsIconId.setOnClickListener {
@@ -50,4 +59,13 @@ class PrayersAdapter(var ctxt: Context, var prayersData: ArrayList<Prayer>) : Re
         }
 
     }
+
+    private fun isNextPrayerTime(position: Int): Boolean {
+        Log.d("TAG", "isNextPrayerTime: ${nextPrayerData?.time} and ${prayersData.get(position).time}")
+        if(nextPrayerData?.time!!.equals(prayersData.get(position).time)){
+            return true
+        }
+        return false
+    }
+
 }

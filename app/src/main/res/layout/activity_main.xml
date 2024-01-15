@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_15sdp"
-            android:text="Qibla Direction"
+            android:text="@string/app_name"
             android:textColor="@color/white"
             android:textSize="@dimen/_16sdp"
             android:textStyle="bold"
@@ -69,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
-            android:text=""
+            android:text="@string/no_date_found"
             android:textColor="@color/white"
             android:textSize="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="@+id/imgDate"
@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
-            android:text=""
+            android:text="@string/no_location_found"
             android:textColor="@color/white"
             android:textSize="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="@+id/imgLocation"
@@ -114,17 +114,18 @@
         android:id="@+id/bottom_Nav"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_gravity="top"
         android:background="@drawable/bottom_nevigation_background"
-        android:paddingTop="13dp"
-        android:paddingBottom="10dp"
+        android:paddingTop="@dimen/_5sdp"
         android:layout_marginStart="-1dp"
         android:layout_marginEnd="-1dp"
         android:layout_marginBottom="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/continerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav" />
+        app:menu="@menu/bottom_nav"
+        app:itemTextColor="@color/theme" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView

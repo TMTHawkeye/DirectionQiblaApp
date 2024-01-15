@@ -9,6 +9,7 @@
 
     <color name="theme">#323232</color>
     <color name="grey">#BCB9B9</color>
+    <color name="light_grey">#E6E2E2</color>
     <color name="yellow">#FFC700</color>
 
     <color name="onboarding_background">#E4F1F8</color>

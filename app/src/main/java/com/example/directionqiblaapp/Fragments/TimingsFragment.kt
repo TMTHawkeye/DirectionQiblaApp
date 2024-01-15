@@ -19,7 +19,6 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.Serializable
-import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -86,17 +85,24 @@ class TimingsFragment : Fragment() {
                     )
                     prayersList.add(Prayer("Isha", prayers?.Isha ?: "6:00 AM", prayerNotification))
 
-                    binding.prayersRV.layoutManager = LinearLayoutManager(requireContext())
-                    binding.prayersRV.adapter = PrayersAdapter(requireContext(), prayersList)
-
                     val nextPrayer = getNextPrayerTime(prayersList)
                     if (nextPrayer != null) {
-                        Log.d("Prayers_Data", "Next prayer: ${nextPrayer.name} at ${nextPrayer.time}")
-                        binding.comingPrayerId.text="${nextPrayer?.name} prayer in ${nextPrayer?.time}"
+                        val timeDifferenceMillis = nextPrayer.second
+                        val formattedTimeDifference = formatMillisToHHMM(timeDifferenceMillis)
+
+                        Log.d("Prayers_Data", "Next prayer: ${nextPrayer.first?.time} at ${nextPrayer?.second}")
+                        binding.comingPrayerId.text="${nextPrayer?.first?.name} prayer in ${formattedTimeDifference}"
                     } else {
                         Log.d("Prayers_Data", "No upcoming prayer times found.")
                         binding.comingPrayerId.text="No upcoming prayer times found"
                     }
+
+                    binding.prayersRV.layoutManager = LinearLayoutManager(requireContext())
+                   val adapter = PrayersAdapter(requireContext(), prayersList,nextPrayer?.first)
+                    binding.prayersRV.adapter=adapter
+
+
+
                 }
 
 //                else -> {}
@@ -106,7 +112,7 @@ class TimingsFragment : Fragment() {
 
 
 
-    private fun getNextPrayerTime(prayersList: List<Prayer>): Prayer? {
+    private fun getNextPrayerTime(prayersList: List<Prayer>): Pair<Prayer?, Long>{
         val currentTimeMillis = System.currentTimeMillis()
         val dateFormat12 = SimpleDateFormat("hh:mm a", Locale.getDefault())
         val formattedTime12 = dateFormat12.format(currentTimeMillis)
@@ -121,11 +127,13 @@ class TimingsFragment : Fragment() {
 
             // Compare Date objects
             if (formattedTimeDate.before(prayerTimeDate)) {
-                return prayer
+                val timeDifferenceMillis = prayerTimeDate.time - formattedTimeDate.time
+
+                return Pair(prayer, timeDifferenceMillis)
             }
         }
+        return Pair(null, 0)
 
-        return null
     }
 
     private fun convertTo12HourFormat(time: String): String {
@@ -170,15 +178,18 @@ class TimingsFragment : Fragment() {
         return dateFormat.format(currentDate)
     }
 
-
     private fun formatMillisToHHMM(millis: Long): String {
         val isNegative = millis < 0
         val absoluteMillis = if (isNegative) -millis else millis
 
         val hours = TimeUnit.MILLISECONDS.toHours(absoluteMillis)
         val minutes = TimeUnit.MILLISECONDS.toMinutes(absoluteMillis) % 60
-
-        val formattedTime = String.format("%02d:%02d", hours, minutes)
+        val formattedTime = when {
+            hours > 0 && minutes > 0 -> "$hours hr and $minutes Mins"
+            hours > 0 -> "$hours hr"
+            minutes > 0 -> "$minutes Mins"
+            else -> "0 Mins"
+        }
 
         return if (isNegative) "-$formattedTime" else formattedTime
     }

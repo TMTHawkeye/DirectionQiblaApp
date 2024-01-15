@@ -1,7 +1,5 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <string name="app_name">Qibla Direction</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="prayer_times">Prayer Times</string>
     <string name="dummy_location">142,142, Rawalpindi, Pakistan</string>
     <string name="dummy_ptrayer">Fajar</string>
@@ -10,7 +8,6 @@
     <string name="calender">Calender</string>
     <string name="dummy_date">12 December, 2023</string>
     <string name="dummy_event">Shab-e-Miraj</string>
-    <string name="onborading_tasbeeh">وَرَفَعْنَا لَكَ ذِكْرَكَ</string>
     <string name="navigation_drawer_open">open_drawer</string>
     <string name="navigation_drawer_close">close_drawer</string>
     <string name="onborading_tasbeeh_desc">Using a tasbih counter helps individuals focus on their prayers and maintain a count of their repetitions. The act of engaging in tasbeeh is seen as a way to remember and draw closer to Allah in everyday life.</string>
@@ -27,6 +24,10 @@
 
     <string name="title_activity_events_bottom_sheet">EventsBottomSheet</string>
     <string name="title_home">Home</string>
+    <string name="title_prayer">Prayers</string>
+    <string name="title_count">Count</string>
+    <string name="title_names">Names</string>
+
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="add_new_event">Add New Event</string>
@@ -44,4 +45,23 @@
     <string name="locked">Locked</string>
     <string name="onboarding_1_description">Locate the Qibla, wherever you are.It\'s so easy to use.There is no need to enter your location manually.The build in compass shows you the direction to Mecca for required prayer.</string>
     <string name="permission_required">Location permission is required to access the Prayers list</string>
+
+    <string name="language_header">Languages</string>
+    <string name="onborading_salat_reminder_desc">Locate the Qibla, wherever you are.It\'s so easy to use.There is no need to enter your location manually.The build in compass shows you the direction to Mecca for required prayer.</string>
+    <string name="salat_reminder">Salat Reminder</string>
+    <string name="tasbih_counter">Tasbih Counter</string>
+    <string name="no_date_found">No date Found</string>
+    <string name="no_location_found">No Location Found</string>
+    <string name="prayer_notification_status">Prayer Notification Status</string>
+    <string name="notification_settings">Notification Settings</string>
+    <string name="coming_prayer_in_the_list">Coming Prayer in the List</string>
+    <string name="hijri_date">Hijri Date</string>
+    <string name="events">Events</string>
+    <string name="qibla_ndirection">Qibla\nDirection</string>
+    <string name="remove_ads">Remove Ads</string>
+    <string name="languages">Languages</string>
+    <string name="calender_events">Calender/Events</string>
+    <string name="share_app">Share App</string>
+    <string name="more_apps">More Apps</string>
+    <string name="privacy_policy">Privacy Policy</string>
 </resources>

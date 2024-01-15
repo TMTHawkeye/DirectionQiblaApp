@@ -35,7 +35,7 @@ class OnBoardingActivity3 : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnNext.setOnClickListener {
-            startActivity(Intent(this, OnBoardingActivity3::class.java))
+//            startActivity(Intent(this, OnBoardingActivity3::class.java))
 
 
             checkLocationPermission()
@@ -71,8 +71,6 @@ class OnBoardingActivity3 : AppCompatActivity() {
 
             }
         } else {
-            // For devices running SDK versions below 23, permissions are granted at installation time
-            // Proceed with your logic or start location-related tasks here
         }
     }
 

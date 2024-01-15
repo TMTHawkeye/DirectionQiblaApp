@@ -1,0 +1,67 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <string name="app_name">Qibla Direction</string>
+    <string name="prayer_times">Horaires de prière</string>
+    <string name="dummy_location">142 142, Rawalpindi, Pakistan</string>
+    <string name="dummy_ptrayer">Aube</string>
+    <string name="dummy_prayer_time">05h27</string>
+    <string name="tasbigCounter">Compteur Tasbih</string>
+    <string name="calender">Calandre</string>
+    <string name="dummy_date">12 décembre 2023</string>
+    <string name="dummy_event">Shab-e-Miraj</string>
+    <string name="navigation_drawer_open">tiroir_ouvert</string>
+    <string name="navigation_drawer_close">fermer_tiroir</string>
+    <string name="onborading_tasbeeh_desc">L\'utilisation d\'un compteur tasbih aide les individus à se concentrer sur leurs prières et à compter leurs répétitions. L\'acte de s\'engager dans le tasbeeh est considéré comme un moyen de se souvenir et de se rapprocher d\'Allah dans la vie de tous les jours.</string>
+
+    <style name="CalendarDateText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="CalendarWeekDayText">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+    <string name="title_activity_events_bottom_sheet">ÉvénementsBottomSheet</string>
+    <string name="title_home">Maison</string>
+    <string name="title_prayer">Prières</string>
+    <string name="title_count">Compter</string>
+    <string name="title_names">Des noms</string>
+
+    <string name="title_dashboard">Tableau de bord</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="add_new_event">Ajouter un nouvel événement</string>
+    <string name="add_dhikr">Ajouter le dhikr</string>
+    <string name="event_name_hint">Nom de l\'événement*</string>
+    <string name="dhikr_name_hint">Nom du dhikr*</string>
+    <string name="typenote_hint">Tapez la note ici...</string>
+    <string name="date_hint">Date</string>
+    <string name="add_custom_limit_hint">Ajouter une limite personnalisée</string>
+    <string name="starttime">Heure de début</string>
+    <string name="endtime">Heure de fin</string>
+    <string name="create_event">Créer un évènement</string>
+    <string name="confirm">Confirmer</string>
+    <string name="hijri">Hijri</string>
+    <string name="locked">Fermé à clé</string>
+    <string name="onboarding_1_description">Localisez la Qibla, où que vous soyez. C\'est si facile à utiliser. Il n\'est pas nécessaire de saisir votre emplacement manuellement. La boussole intégrée vous indique la direction vers la Mecque pour la prière requise.</string>
+    <string name="permission_required">Une autorisation de localisation est requise pour accéder à la liste de prières</string>
+
+    <string name="language_header">Langues</string>
+    <string name="onborading_salat_reminder_desc">Localisez la Qibla, où que vous soyez. C\'est si facile à utiliser. Il n\'est pas nécessaire de saisir votre emplacement manuellement. La boussole intégrée vous indique la direction vers la Mecque pour la prière requise.</string>
+    <string name="salat_reminder">Rappel de salade</string>
+    <string name="tasbih_counter">Compteur Tasbih</string>
+    <string name="no_date_found">Aucune date trouvée</string>
+    <string name="no_location_found">Aucun emplacement trouvé</string>
+    <string name="prayer_notification_status">Statut de notification de prière</string>
+    <string name="notification_settings">Paramètres de notification</string>
+    <string name="coming_prayer_in_the_list">Prière à venir dans la liste</string>
+    <string name="hijri_date">Date de l\'hégire</string>
+    <string name="events">Événements</string>
+    <string name="qibla_ndirection">Direction de la Qibla</string>
+    <string name="remove_ads">Remove Ads</string>
+    <string name="languages">Langues</string>
+    <string name="calender_events">Calendrier/Événements</string>
+    <string name="share_app">Partager l\'application</string>
+    <string name="more_apps">Plus d\'applications</string>
+    <string name="privacy_policy">politique de confidentialité</string>
+</resources>

@@ -23,6 +23,12 @@
         android:theme="@style/Theme.DirectionQiblaApp"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.LanguagesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.BaseActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.DhikrHistoryActivity"
             android:exported="false" />
         <activity
@@ -32,7 +38,7 @@
             android:name=".Activities.OnboardingActivity2"
             android:exported="false" />
         <activity
-            android:name=".Activities.SplashActivity"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.Onboarding1Activity"
@@ -41,7 +47,7 @@
             android:name=".Activities.CalenderActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -12,6 +12,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import com.example.directionqiblaapp.Fragments.NamesOfAllahFragment
 import com.example.directionqiblaapp.Fragments.PrayerTimeFragment
 import com.example.directionqiblaapp.Fragments.QiblaDirectionFragment
 import com.example.directionqiblaapp.Fragments.TasbeehCounterFragment
@@ -131,9 +132,9 @@ class MainActivity : AppCompatActivity() {
         )
 
 
-        binding.bottomNav.itemIconTintList = iconTintList
-
-        binding.bottomNav.itemTextColor = textColors
+//        binding.bottomNav.itemIconTintList = iconTintList
+//
+//        binding.bottomNav.itemTextColor = textColors
 
         val menu = binding.bottomNav.menu
         for (i in 0 until menu.size()) {
@@ -162,7 +163,7 @@ class MainActivity : AppCompatActivity() {
 //                    checkLocationPermission()
                 }
                 R.id.Names-> {
-
+                    loadfragment(NamesOfAllahFragment())
                 }
                 R.id.Tasbeeh->{
                     loadfragment(TasbeehCounterFragment())

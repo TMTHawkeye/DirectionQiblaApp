@@ -95,56 +95,56 @@ class QiblaDirectionFragment : Fragment(), SensorEventListener, LocationListener
     private fun initSkinsList() {
         skinsList.add(
             Skins(
-                requireContext().getDrawable(R.drawable.outer_core_1),
+                requireContext().getDrawable(R.drawable.outer_compass_1),
                 requireContext().getDrawable(R.drawable.campass_img)
             )
         )
 
         skinsList.add(
             Skins(
-                requireContext().getDrawable(R.drawable.outer_core_2),
+                requireContext().getDrawable(R.drawable.outer_compass_2),
                 requireContext().getDrawable(R.drawable.inner_compass_2)
             )
         )
         skinsList.add(
             Skins(
-                requireContext().getDrawable(R.drawable.outer_core_1),
+                requireContext().getDrawable(R.drawable.outer_compass_1),
                 requireContext().getDrawable(R.drawable.inner_compass_3)
             )
         )
         skinsList.add(
             Skins(
-                requireContext().getDrawable(R.drawable.outer_core_3),
+                requireContext().getDrawable(R.drawable.outer_compass_3),
                 requireContext().getDrawable(R.drawable.inner_compass_3)
             )
         )
         skinsList.add(
             Skins(
-                requireContext().getDrawable(R.drawable.outer_core_1),
+                requireContext().getDrawable(R.drawable.outer_compass_3),
                 requireContext().getDrawable(R.drawable.inner_compass_4)
             )
         )
         skinsList.add(
             Skins(
-                requireContext().getDrawable(R.drawable.outer_core_2),
+                requireContext().getDrawable(R.drawable.outer_compass_2),
                 requireContext().getDrawable(R.drawable.inner_compass_4)
             )
         )
         skinsList.add(
             Skins(
-                requireContext().getDrawable(R.drawable.outer_core_5),
+                requireContext().getDrawable(R.drawable.outer_compass_4),
                 requireContext().getDrawable(R.drawable.inner_compass_5)
             )
         )
         skinsList.add(
             Skins(
-                requireContext().getDrawable(R.drawable.outer_core_1),
+                requireContext().getDrawable(R.drawable.outer_compass_1),
                 requireContext().getDrawable(R.drawable.inner_compass_6)
             )
         )
         skinsList.add(
             Skins(
-                requireContext().getDrawable(R.drawable.outer_core_2),
+                requireContext().getDrawable(R.drawable.outer_compass_2),
                 requireContext().getDrawable(R.drawable.inner_compass_6)
             )
         )
