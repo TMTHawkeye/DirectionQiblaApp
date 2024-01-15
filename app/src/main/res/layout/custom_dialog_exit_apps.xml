@@ -24,7 +24,7 @@
                 android:id="@+id/header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/save"
+                android:text="@string/exit"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -37,7 +37,7 @@
                 android:id="@+id/text_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/save_dhikr"
+                android:text="@string/exit_desc"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:gravity="center"
                 android:textSize="@dimen/_12sdp"
@@ -47,8 +47,8 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/yes_id"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_30sdp"
                 app:cardCornerRadius="@dimen/_10sdp"
                 app:layout_constraintEnd_toStartOf="@+id/no_id"
                 app:cardBackgroundColor="@color/light_grey"
@@ -68,12 +68,12 @@
             </com.google.android.material.card.MaterialCardView>
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/no_id"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_30sdp"
                 app:layout_constraintStart_toEndOf="@+id/yes_id"
                 app:cardCornerRadius="@dimen/_10sdp"
                 app:cardBackgroundColor="@color/blue"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/rateUs_id"
                 app:layout_constraintTop_toBottomOf="@+id/text_location"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginTop="@dimen/_10sdp">
@@ -89,6 +89,29 @@
 
 
             </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/rateUs_id"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_30sdp"
+                app:layout_constraintStart_toEndOf="@+id/no_id"
+                app:cardCornerRadius="@dimen/_10sdp"
+                app:cardBackgroundColor="@color/yellow"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_location"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="@dimen/_10sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="@string/rate"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"/>
+
+
+            </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -98,7 +121,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/save_img"
+        android:src="@drawable/exit_img"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

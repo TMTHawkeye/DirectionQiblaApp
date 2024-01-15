@@ -1,22 +1,30 @@
 package com.example.directionqiblaapp.Fragments
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.ImageView
 import android.widget.Toast
 import com.example.directionqiblaapp.Activities.DhikrHistoryActivity
 import com.example.directionqiblaapp.Interfaces.DhikrSelectionListner
 import com.example.directionqiblaapp.ModelClasses.model.DhikrModel.Dhikr
 import com.example.directionqiblaapp.R
+import com.example.directionqiblaapp.databinding.CustomDialogDeleteBinding
+import com.example.directionqiblaapp.databinding.CustomDialogResetDhikrBinding
+import com.example.directionqiblaapp.databinding.CustomDialogSaveDhikrBinding
 import com.example.directionqiblaapp.databinding.FragmentTasbeehCounterBinding
 import io.paperdb.Paper
 
@@ -96,21 +104,12 @@ class TasbeehCounterFragment : Fragment(),DhikrSelectionListner {
         }
 
         binding.resetId.setOnClickListener {
-            countTasbeeh=0
-            binding.countId.text=countTasbeeh.toString()
-            binding.dhikrNameId.text=""
-            binding.dhikrNameId.visibility=View.GONE
-            binding.addDhikrId.visibility=View.VISIBLE
-            dhikrItem=null
+            showResetDialog()
         }
 
         binding.saveId.setOnClickListener {
             if(dhikrItem!=null && !binding.countId.text.equals("0")){
-                dhikrItem?.dhikrCount = binding.countId.text.toString().toInt()
-                updateDhikrCountInPaperDB(dhikrItem)
-
-
-
+                showSaveDialog()
             }
             else{
                 Toast.makeText(requireContext(), "Count cannot be 0", Toast.LENGTH_SHORT).show()
@@ -134,6 +133,68 @@ class TasbeehCounterFragment : Fragment(),DhikrSelectionListner {
 
         return binding.root
     }
+
+    private fun showSaveDialog() {
+            val dialogBinding = CustomDialogSaveDhikrBinding.inflate(LayoutInflater.from(requireContext()))
+            val dialog = Dialog(requireContext())
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setCancelable(false)
+            dialog.setContentView(dialogBinding.root)
+
+            val window: Window = dialog.window!!
+            window.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            window.setGravity(Gravity.CENTER)
+
+            dialog.show()
+
+            dialogBinding.yesId.setOnClickListener {
+                dhikrItem?.dhikrCount = binding.countId.text.toString().toInt()
+                updateDhikrCountInPaperDB(dhikrItem)
+                dialog.dismiss()
+            }
+
+            dialogBinding.noId.setOnClickListener {
+                dialog.dismiss()
+            }
+
+    }
+    private fun showResetDialog() {
+        val dialogBinding = CustomDialogResetDhikrBinding.inflate(LayoutInflater.from(requireContext()))
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(dialogBinding.root)
+
+        val window: Window = dialog.window!!
+        window.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window.setGravity(Gravity.CENTER)
+
+        dialog.show()
+
+        dialogBinding.yesId.setOnClickListener {
+            countTasbeeh=0
+            binding.countId.text=countTasbeeh.toString()
+            binding.dhikrNameId.text=""
+            binding.dhikrNameId.visibility=View.GONE
+            binding.addDhikrId.visibility=View.VISIBLE
+            dhikrItem=null
+            dialog.dismiss()
+        }
+
+        dialogBinding.noId.setOnClickListener {
+            dialog.dismiss()
+        }
+
+    }
+
 
     private fun vibrateDevice() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

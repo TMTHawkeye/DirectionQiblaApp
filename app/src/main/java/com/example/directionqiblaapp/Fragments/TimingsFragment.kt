@@ -20,6 +20,7 @@ import com.google.android.gms.location.LocationServices
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.Serializable
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.concurrent.TimeUnit
@@ -90,17 +91,20 @@ class TimingsFragment : Fragment() {
                         val timeDifferenceMillis = nextPrayer.second
                         val formattedTimeDifference = formatMillisToHHMM(timeDifferenceMillis)
 
-                        Log.d("Prayers_Data", "Next prayer: ${nextPrayer.first?.time} at ${nextPrayer?.second}")
-                        binding.comingPrayerId.text="${nextPrayer?.first?.name} prayer in ${formattedTimeDifference}"
+                        Log.d(
+                            "Prayers_Data",
+                            "Next prayer: ${nextPrayer.first?.time} at ${nextPrayer?.second}"
+                        )
+                        binding.comingPrayerId.text =
+                            "${nextPrayer?.first?.name} prayer in ${formattedTimeDifference}"
                     } else {
                         Log.d("Prayers_Data", "No upcoming prayer times found.")
-                        binding.comingPrayerId.text="No upcoming prayer times found"
+                        binding.comingPrayerId.text = "No upcoming prayer times found"
                     }
 
                     binding.prayersRV.layoutManager = LinearLayoutManager(requireContext())
-                   val adapter = PrayersAdapter(requireContext(), prayersList,nextPrayer?.first)
-                    binding.prayersRV.adapter=adapter
-
+                    val adapter = PrayersAdapter(requireContext(), prayersList, nextPrayer?.first)
+                    binding.prayersRV.adapter = adapter
 
 
                 }
@@ -111,8 +115,7 @@ class TimingsFragment : Fragment() {
     }
 
 
-
-    private fun getNextPrayerTime(prayersList: List<Prayer>): Pair<Prayer?, Long>{
+    private fun getNextPrayerTime(prayersList: List<Prayer>): Pair<Prayer?, Long> {
         val currentTimeMillis = System.currentTimeMillis()
         val dateFormat12 = SimpleDateFormat("hh:mm a", Locale.getDefault())
         val formattedTime12 = dateFormat12.format(currentTimeMillis)
@@ -121,19 +124,29 @@ class TimingsFragment : Fragment() {
             val prayerTimeFormatted = convertTo12HourFormat(prayer.time)
             Log.d("TAG_prayer", "getNextPrayerTime: $prayerTimeFormatted and $formattedTime12")
 
-            // Parse time strings to Date objects for proper comparison
             val formattedTimeDate = dateFormat12.parse(formattedTime12)
             val prayerTimeDate = dateFormat12.parse(prayerTimeFormatted)
 
             if (formattedTimeDate.before(prayerTimeDate)) {
                 val timeDifferenceMillis = prayerTimeDate.time - formattedTimeDate.time
-                Log.d("TAG_prayer", "getNextPrayerTime: ${prayerTimeDate.time and formattedTimeDate.time}")
 
                 return Pair(prayer, timeDifferenceMillis)
             }
-        }
-        return Pair(null, 0)
+            else{
+                if (prayersList.isNotEmpty()) {
+                    val nextDayPrayer = prayersList.first() // Assuming the list is ordered by prayer times
+                    val nextDayPrayerTimeFormatted = convertTo12HourFormat(nextDayPrayer.time)
+                    val formattedTimeDate = dateFormat12.parse(formattedTime12)
+                    val nextDayPrayerTimeDate = dateFormat12.parse(nextDayPrayerTimeFormatted)
+                    val timeDifferenceMillis = formattedTimeDate.time-nextDayPrayerTimeDate.time
 
+                    return Pair(nextDayPrayer, timeDifferenceMillis)
+                }
+            }
+        }
+
+
+        return Pair(null, 0)
     }
 
     private fun convertTo12HourFormat(time: String): String {
@@ -142,7 +155,6 @@ class TimingsFragment : Fragment() {
         val date = inputFormat.parse(time)
         return outputFormat.format(date)
     }
-
 
 
     @SuppressLint("MissingPermission")
@@ -199,4 +211,4 @@ class TimingsFragment : Fragment() {
 
 class Prayer(
     var name: String, var time: String, var selectedNotification: PrayerNotification
-) :Serializable
+) : Serializable

@@ -28,7 +28,9 @@ import com.example.directionqiblaapp.Fragments.PrayerTimeFragment
 import com.example.directionqiblaapp.Fragments.QiblaDirectionFragment
 import com.example.directionqiblaapp.Fragments.TasbeehCounterFragment
 import com.example.directionqiblaapp.databinding.ActivityMainBinding
+import com.example.directionqiblaapp.databinding.CustomDialogExitAppsBinding
 import com.example.directionqiblaapp.databinding.CustomDialogMoreAppsBinding
+import com.example.directionqiblaapp.databinding.CustomDialogPrivacyPolicyBinding
 import com.example.directionqiblaapp.databinding.CustomDialogShareAppBinding
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -97,7 +99,7 @@ class MainActivity : AppCompatActivity() {
                 .findViewById<LinearLayout>(R.id.moreApps_layout)
 
         privacyPolicy.setOnClickListener {
-            privacyPolicy()
+            showPrivacyPolicyDialog()
             binding.drawerLayout.closeDrawer(GravityCompat.START)
 
         }
@@ -194,7 +196,7 @@ class MainActivity : AppCompatActivity() {
                 if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                 } else {
-//                        showExitDialog()
+                    showExitDialog()
                 }
             }
 
@@ -205,36 +207,54 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-//    private fun showExitDialog() {
-//        val dialog_binding = CustomDia.inflate(layoutInflater)
-//        val dialog = Dialog(this)
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-//        dialog.setCancelable(false)
-//        dialog.setContentView(dialog_binding.root)
-//
-//        val window: Window = dialog.window!!
-//        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-//        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//        window.setGravity(Gravity.CENTER)
-//
-//        dialog.show()
-//
-//        dialog_binding.cardNo.setOnClickListener {
-//            dialog.dismiss()
-//            hideNavBar()
-//        }
-//
-//        dialog_binding.cardYes.setOnClickListener {
-//            dialog.dismiss()
-//            finishAffinity()
-//        }
-//
-//        dialog_binding.closeDialog.setOnClickListener {
-//            dialog.dismiss()
-//            hideNavBar()
-//        }
-//
-//    }
+    private fun showExitDialog() {
+        val dialog_binding = CustomDialogExitAppsBinding.inflate(layoutInflater)
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(dialog_binding.root)
+
+        val window: Window = dialog.window!!
+        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window.setGravity(Gravity.CENTER)
+
+        dialog.show()
+
+        dialog_binding.noId.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog_binding.yesId.setOnClickListener {
+            dialog.dismiss()
+            finishAffinity()
+        }
+
+        dialog_binding.rateUsId.setOnClickListener {
+            dialog.dismiss()
+            rateUs()
+        }
+
+    }
+
+    private fun rateUs() {
+        val appPackageName = packageName
+        try {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("market://details?id=$appPackageName")
+                )
+            )
+        } catch (e: android.content.ActivityNotFoundException) {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
+                )
+            )
+        }
+    }
 
     private fun showShareAppDialog() {
         val dialog_binding = CustomDialogShareAppBinding.inflate(layoutInflater)
@@ -288,6 +308,33 @@ class MainActivity : AppCompatActivity() {
 
         dialogBinding.noId.setOnClickListener {
             dialog.dismiss()
+        }
+    }
+
+    private fun showPrivacyPolicyDialog() {
+        val dialogBinding = CustomDialogPrivacyPolicyBinding.inflate(layoutInflater)
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(dialogBinding.root)
+
+        val window: Window = dialog.window!!
+        window.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window.setGravity(Gravity.CENTER)
+
+        dialog.show()
+
+        dialogBinding.dontAllowId.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialogBinding.allowId.setOnClickListener {
+            dialog.dismiss()
+            privacyPolicy()
         }
     }
 

@@ -1,15 +1,25 @@
 package com.example.directionqiblaapp.Activities
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.CalendarView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.directionqiblaapp.Adapters.EventsAdapter
 import com.example.directionqiblaapp.Fragments.EventsBottomSheet
 import com.example.directionqiblaapp.Interfaces.EventSelectionListner
+import com.example.directionqiblaapp.MainActivity
 import com.example.directionqiblaapp.ModelClasses.model.EventsModel.Event
 import com.example.directionqiblaapp.databinding.ActivityCalenderBinding
 import io.paperdb.Paper
@@ -23,13 +33,17 @@ import org.json.JSONObject
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 import java.util.concurrent.Executors
 
-class CalenderActivity : AppCompatActivity() , EventSelectionListner{
+class CalenderActivity : AppCompatActivity() , EventSelectionListner, LocationListener {
     lateinit var binding:ActivityCalenderBinding
 
     private var isBottomSheetVisible = false
     lateinit var adapter : EventsAdapter
+    private var userLocation: Location? = null
+    private var locationManager: LocationManager? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +53,31 @@ class CalenderActivity : AppCompatActivity() , EventSelectionListner{
         binding.eventsRV.layoutManager=LinearLayoutManager(this@CalenderActivity)
 
         getCalenderData()
+
+        locationManager =
+            getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+        // Request location updates
+        if (ContextCompat.checkSelfPermission(
+                this@CalenderActivity,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            val lastKnownLocation =
+                locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+            if (lastKnownLocation != null) {
+                onLocationChanged(lastKnownLocation)
+            } else {
+                // Request location updates with adjusted parameters
+                locationManager?.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER,
+                    5000, // Update interval in milliseconds (e.g., 5 seconds)
+                    10f,   // Update distance in meters (e.g., 10 meters)
+                    this
+                )
+            }
+
+        }
 
         val eventsListFromPaperDb= Paper.book().read<ArrayList<Event?>>("EVENTS_LIST")
         if(eventsListFromPaperDb!=null) {
@@ -60,6 +99,32 @@ class CalenderActivity : AppCompatActivity() , EventSelectionListner{
         }
 
     }
+
+    override fun onLocationChanged(location: Location) {
+        userLocation = location
+        val geocoder = Geocoder(this@CalenderActivity, Locale.getDefault())
+        try {
+            val addresses: List<Address>? =
+                geocoder.getFromLocation(location.latitude, location.longitude, 1)
+
+            if (addresses != null && addresses.isNotEmpty()) {
+                val address = addresses[0]
+                val locationString =
+                    "${location.latitude.toInt()},${location.longitude.toInt()}, ${address.locality}, ${address.adminArea}, ${address.countryName}"
+                binding.locationValueId.text = locationString
+
+
+            } else {
+              binding.locationValueId.text  = "Location not available"
+
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+           binding.locationValueId.text  = "Error retrieving location information"
+
+        }
+    }
+
 
     private fun getCalenderData() {
         val calendar1 = Calendar.getInstance()

@@ -2,12 +2,16 @@ package com.example.directionqiblaapp.Fragments
 
 import android.Manifest
 import android.animation.ObjectAnimator
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -22,14 +26,17 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.provider.Settings
 import android.renderscript.Allocation
 import android.renderscript.Element
 import android.renderscript.RenderScript
 import android.renderscript.ScriptIntrinsicBlur
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import android.widget.Toast
@@ -37,7 +44,12 @@ import androidx.core.content.ContextCompat
 import com.example.directionqiblaapp.Activities.CalenderActivity
 import com.example.directionqiblaapp.MainActivity
 import com.example.directionqiblaapp.R
+import com.example.directionqiblaapp.databinding.CustomDialogLocationBinding
 import com.example.directionqiblaapp.databinding.FragmentQiblaDirectionBinding
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationSettingsRequest
 import jp.wasabeef.blurry.Blurry
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -330,6 +342,76 @@ class QiblaDirectionFragment : Fragment(), SensorEventListener, LocationListener
             (activity as? MainActivity)?.updateLocationText("Error retrieving location information")
 
         }
+    }
+
+    override fun onProviderDisabled(provider: String) {
+
+        showPermissionDialog()
+    }
+
+    private fun showPermissionDialog() {
+
+        val dialog_binding = CustomDialogLocationBinding.inflate(layoutInflater)
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(dialog_binding.root)
+
+        val window: Window = dialog.window!!
+        window.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window.setGravity(Gravity.CENTER)
+
+        dialog.show()
+
+        dialog_binding.dontAllowId.setOnClickListener {
+            Toast.makeText(requireContext(), "Some Features may not work properly!", Toast.LENGTH_SHORT).show()
+
+            dialog.dismiss()
+        }
+
+        dialog_binding.allowId.setOnClickListener {
+            enableLocationServices()
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    private fun enableLocationServices() {
+        val locationRequest = LocationRequest.create()
+            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+
+        val builder = LocationSettingsRequest.Builder()
+            .addLocationRequest(locationRequest)
+
+        val settingsClient = LocationServices.getSettingsClient(requireActivity())
+        val task = settingsClient.checkLocationSettings(builder.build())
+
+        task.addOnSuccessListener {
+            Toast.makeText(requireContext(), "Location Enabled!", Toast.LENGTH_SHORT).show()
+        }
+
+        task.addOnFailureListener { exception ->
+            // Location settings are not satisfied.
+            // Show a dialog prompting the user to enable location services.
+            if (exception is ResolvableApiException) {
+                try {
+                    exception.startResolutionForResult(requireActivity(), 123)
+                } catch (sendEx: IntentSender.SendIntentException) {
+                    sendEx.printStackTrace()
+                }
+            }
+        }
+    }
+
+
+    override fun onProviderEnabled(provider: String) {
+        // Handle provider enabled
+        Toast.makeText(requireContext(), "Location provider $provider is enabled", Toast.LENGTH_SHORT).show()
     }
 
 

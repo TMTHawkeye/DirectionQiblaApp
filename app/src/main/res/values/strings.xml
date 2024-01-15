@@ -83,4 +83,7 @@
     <string name="reset_dhikr_desc">Are you sure you want to reset?</string>
     <string name="delete_event">Delete Event</string>
     <string name="delete_event_desc">Do you want to delete event from a list?</string>
+    <string name="exit">Exit?</string>
+    <string name="exit_desc">Are you sure you want to exit app?</string>
+    <string name="rate">Rate Us</string>
 </resources>

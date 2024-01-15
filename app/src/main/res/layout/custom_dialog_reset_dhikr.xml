@@ -47,11 +47,11 @@
                 android:layout_marginHorizontal="@dimen/_20sdp"/>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/dontAllow_id"
+                android:id="@+id/yes_id"
                 android:layout_width="@dimen/_100sdp"
                 android:layout_height="@dimen/_40sdp"
                 app:cardCornerRadius="@dimen/_10sdp"
-                app:layout_constraintEnd_toStartOf="@+id/allow_id"
+                app:layout_constraintEnd_toStartOf="@+id/no_id"
                 app:cardBackgroundColor="@color/light_grey"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_location"
@@ -68,10 +68,10 @@
 
             </com.google.android.material.card.MaterialCardView>
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/allow_id"
+                android:id="@+id/no_id"
                 android:layout_width="@dimen/_100sdp"
                 android:layout_height="@dimen/_40sdp"
-                app:layout_constraintStart_toEndOf="@+id/dontAllow_id"
+                app:layout_constraintStart_toEndOf="@+id/yes_id"
                 app:cardCornerRadius="@dimen/_10sdp"
                 app:cardBackgroundColor="@color/blue"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -98,8 +98,8 @@
 
     <ImageView
         android:id="@+id/location_img_id"
-        android:layout_width="150dp"
-        android:layout_height="152dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5sdp"
         android:elevation="@dimen/_10sdp"
         android:src="@drawable/reset_img"
