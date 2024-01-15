@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/outer_core"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/circle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.127" />
+
+    <ImageView
+        android:id="@+id/inner_compass_id"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/inner_compass_6"
+        app:layout_constraintBottom_toBottomOf="@id/outer_core"
+        app:layout_constraintEnd_toEndOf="@id/outer_core"
+        app:layout_constraintStart_toStartOf="@id/outer_core"
+        android:layout_margin="@dimen/_20sdp"
+        app:layout_constraintTop_toTopOf="@id/outer_core" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/hijri_calender_card_id"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/_10sdp"
+        app:cardElevation="@dimen/_8sdp"
+        app:layout_constraintEnd_toStartOf="@+id/match_direction_card_id"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_5sdp">
+
+            <ImageView
+                android:id="@+id/calender_icon_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/event_calender_icon"
+                app:layout_constraintBottom_toTopOf="@+id/hijri_text_id"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/hijri_text_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:text="@string/hijri"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/calender_icon_id" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        app:cardElevation="@dimen/_8sdp"
+        android:id="@+id/match_direction_card_id"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/_30sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="?attr/selectableItemBackground"
+            android:padding="16dp"
+            android:text=""
+            android:textColor="@color/count"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
+
+
+    <ImageView
+        android:id="@+id/previous_compass_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/arrow_background"
+        android:src="@drawable/arrow_back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/outer_core"
+        app:layout_constraintVertical_bias="0.225" />
+
+    <ImageView
+        android:id="@+id/reward_ad_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/reward_ad_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/next_compass_id"
+        app:layout_constraintStart_toEndOf="@id/previous_compass_id"
+        app:layout_constraintTop_toBottomOf="@+id/outer_core"
+        app:layout_constraintVertical_bias="0.221" />
+
+    <ImageView
+        android:id="@+id/next_compass_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/arrow_background"
+        android:src="@drawable/arrow_next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/outer_core"
+        app:layout_constraintVertical_bias="0.221"  />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,47 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <string name="app_name">Qibla Direction</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="prayer_times">Prayer Times</string>
+    <string name="dummy_location">142,142, Rawalpindi, Pakistan</string>
+    <string name="dummy_ptrayer">Fajar</string>
+    <string name="dummy_prayer_time">5:27 AM</string>
+    <string name="tasbigCounter">Tasbih Counter</string>
+    <string name="calender">Calender</string>
+    <string name="dummy_date">12 December, 2023</string>
+    <string name="dummy_event">Shab-e-Miraj</string>
+    <string name="onborading_tasbeeh">وَرَفَعْنَا لَكَ ذِكْرَكَ</string>
+    <string name="navigation_drawer_open">open_drawer</string>
+    <string name="navigation_drawer_close">close_drawer</string>
+    <string name="onborading_tasbeeh_desc">Using a tasbih counter helps individuals focus on their prayers and maintain a count of their repetitions. The act of engaging in tasbeeh is seen as a way to remember and draw closer to Allah in everyday life.</string>
+
+    <style name="CalendarDateText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="CalendarWeekDayText">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+    <string name="title_activity_events_bottom_sheet">EventsBottomSheet</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="add_new_event">Add New Event</string>
+    <string name="add_dhikr">Add Dhikr</string>
+    <string name="event_name_hint">Event name*</string>
+    <string name="dhikr_name_hint">Dhikr name*</string>
+    <string name="typenote_hint">Type the note here...</string>
+    <string name="date_hint">Date</string>
+    <string name="add_custom_limit_hint">Add Custom Limit</string>
+    <string name="starttime">Start Time</string>
+    <string name="endtime">End Time</string>
+    <string name="create_event">Create Event</string>
+    <string name="confirm">Confirm</string>
+    <string name="hijri">Hijri</string>
+    <string name="locked">Locked</string>
+    <string name="onboarding_1_description">Locate the Qibla, wherever you are.It\'s so easy to use.There is no need to enter your location manually.The build in compass shows you the direction to Mecca for required prayer.</string>
+    <string name="permission_required">Location permission is required to access the Prayers list</string>
+</resources>

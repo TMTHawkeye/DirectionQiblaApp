@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="stroke">#3C276165</color>
+
+    <color name="count">#334B4F</color>
+
+    <color name="theme">#323232</color>
+    <color name="grey">#BCB9B9</color>
+    <color name="yellow">#FFC700</color>
+
+    <color name="onboarding_background">#E4F1F8</color>
+    <color name="activity_bg">#F2FEFF</color>
+
+    <color name="bottom_nav_icon_selected">#266E73</color>
+    <color name="bottom_nav_icon_unselected">#424141</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="green">#3AAF59</color>
+
+    <color name="main_background">#F8FCFF</color>
+
+    <color name="switch_thumb_selector">
+        <selector xmlns:android="http://schemas.android.com/apk/res/android">
+            <item android:state_checked="false" android:color="#FF0000" />
+            <item android:state_checked="true" android:color="#00FF00" />
+        </selector>
+    </color>
+
+    <color name="switch_track_selector">
+        <selector xmlns:android="http://schemas.android.com/apk/res/android">
+            <item android:state_checked="false" android:color="#FF8080" />
+            <item android:state_checked="true" android:color="#80FF80" />
+        </selector>
+    </color>
+</resources>

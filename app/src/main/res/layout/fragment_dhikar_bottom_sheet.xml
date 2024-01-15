@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/add_event_header_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/add_dhikr"
+        android:textSize="@dimen/_14sdp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_10sdp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/eventName_ET_layout_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/_20sdp"
+        app:layout_constraintTop_toBottomOf="@+id/add_event_header_id"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dhikrName_ET_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/dhikr_name_hint"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/custom_limit_ET_layout_id"
+        android:layout_margin="@dimen/_20sdp"
+        app:layout_constraintTop_toBottomOf="@+id/eventName_ET_layout_id"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="0dp"
+        app:layout_constraintEnd_toStartOf="@+id/card_limit"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/custom_limit_ET_id"
+            android:layout_width="match_parent"
+            android:inputType="numberDecimal"
+            android:digits="0123456789"
+            android:layout_height="wrap_content"
+            android:hint="@string/add_custom_limit_hint"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:src="@drawable/inifinite_limit_img"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:layout_marginVertical="@dimen/_25sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventName_ET_layout_id"
+        app:layout_constraintStart_toEndOf="@+id/custom_limit_ET_layout_id"
+        android:id="@+id/card_limit"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/confirm_dhikr_id"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        app:cardCornerRadius="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/custom_limit_ET_layout_id">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/card_gradient_bg">
+
+            <TextView
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/confirm"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

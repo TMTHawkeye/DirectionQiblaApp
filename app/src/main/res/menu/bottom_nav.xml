@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/Qibla"
+        android:title="Home"
+        android:icon="@drawable/home_selected_icon"
+        app:actionLayout="@layout/menu_item_layout"
+        />
+
+    <item
+        android:id="@+id/Prayers"
+        android:title="Prayers"
+        android:icon="@drawable/prayers_unselected_icon"
+        app:actionLayout="@layout/menu_item_layout"
+        />
+
+    <item
+        android:id="@+id/Tasbeeh"
+        android:title="Count"
+        android:icon="@drawable/unselected_tasbeeh_icon"
+        app:actionLayout="@layout/menu_item_layout"
+        />
+
+    <item
+        android:id="@+id/Names"
+        android:title="Names"
+        android:icon="@drawable/names_unselected_icon__2_"
+        app:actionLayout="@layout/menu_item_layout"
+        />
+
+</menu>

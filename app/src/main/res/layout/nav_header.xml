@@ -1,0 +1,173 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/drawer_bg"
+        android:padding="@dimen/_30sdp">
+
+        <ImageView
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/splash_icon"
+            android:id="@+id/drawer_icon_id"/>
+
+        <TextView
+            android:id="@+id/menu_header_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/drawer_icon_id"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center_horizontal"
+            android:text="Qibla\nDirection"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/removeAds_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Rate Us"
+            android:padding="@dimen/_10ssp"
+            android:src="@drawable/crown_img" />
+
+        <TextView
+            android:id="@+id/nav_rate_us"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Remove Ads"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/language_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Share App"
+            android:padding="@dimen/_10ssp"
+            android:src="@drawable/language_icon" />
+
+        <TextView
+            android:id="@+id/nav_share_app"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Languages"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/calender_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Calender"
+            android:padding="@dimen/_10ssp"
+            android:layout_marginStart="@dimen/_3sdp"
+            android:src="@drawable/event_calender_icon" />
+
+        <TextView
+            android:id="@+id/nav_language"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Calender/Events"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/share_app_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Share App"
+            android:padding="@dimen/_10ssp"
+            android:src="@drawable/share_icon" />
+
+        <TextView
+            android:id="@+id/nav_save_files"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Share App"
+            android:textSize="16sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/moreApps_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Share App"
+            android:padding="@dimen/_10ssp"
+            android:src="@drawable/more_apps_icon" />
+
+        <TextView
+            android:id="@+id/moreApps_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="More Apps"
+            android:textSize="16sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/privacy_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Privacy Policy"
+            android:padding="@dimen/_10ssp"
+            android:src="@drawable/privacy_icon" />
+
+        <TextView
+            android:id="@+id/privacy_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Privacy Policy"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+
+</LinearLayout>
