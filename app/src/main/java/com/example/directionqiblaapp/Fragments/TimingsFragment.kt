@@ -125,9 +125,9 @@ class TimingsFragment : Fragment() {
             val formattedTimeDate = dateFormat12.parse(formattedTime12)
             val prayerTimeDate = dateFormat12.parse(prayerTimeFormatted)
 
-            // Compare Date objects
             if (formattedTimeDate.before(prayerTimeDate)) {
                 val timeDifferenceMillis = prayerTimeDate.time - formattedTimeDate.time
+                Log.d("TAG_prayer", "getNextPrayerTime: ${prayerTimeDate.time and formattedTimeDate.time}")
 
                 return Pair(prayer, timeDifferenceMillis)
             }

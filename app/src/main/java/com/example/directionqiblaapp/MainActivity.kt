@@ -1,22 +1,35 @@
 package com.example.directionqiblaapp
 
+import android.app.Dialog
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.content.res.ColorStateList
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
+import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import com.example.directionqiblaapp.Activities.CalenderActivity
+import com.example.directionqiblaapp.Activities.LanguagesActivity
 import com.example.directionqiblaapp.Fragments.NamesOfAllahFragment
 import com.example.directionqiblaapp.Fragments.PrayerTimeFragment
 import com.example.directionqiblaapp.Fragments.QiblaDirectionFragment
 import com.example.directionqiblaapp.Fragments.TasbeehCounterFragment
 import com.example.directionqiblaapp.databinding.ActivityMainBinding
+import com.example.directionqiblaapp.databinding.CustomDialogMoreAppsBinding
+import com.example.directionqiblaapp.databinding.CustomDialogShareAppBinding
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -84,32 +97,32 @@ class MainActivity : AppCompatActivity() {
                 .findViewById<LinearLayout>(R.id.moreApps_layout)
 
         privacyPolicy.setOnClickListener {
-//            privacyPolicy()
+            privacyPolicy()
             binding.drawerLayout.closeDrawer(GravityCompat.START)
 
         }
 
         shareApp.setOnClickListener {
+            showShareAppDialog()
             binding.drawerLayout.closeDrawer(GravityCompat.START)
 //            shareApplication()
         }
 
         language.setOnClickListener {
-//            binding.drawerLayout.closeDrawer(GravityCompat.START)
-            Toast.makeText(this@MainActivity, "Comming Soon!", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this@MainActivity,LanguagesActivity::class.java))
         }
 
         moreApps.setOnClickListener {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
+            showMoreAppsDialog()
         }
 
         calender.setOnClickListener {
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            startActivity(Intent(this@MainActivity,CalenderActivity::class.java))
         }
         removeAds.setOnClickListener {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         }
-
 
         val currentDate = SimpleDateFormat("dd MMMM, yyyy", Locale.getDefault()).format(Date())
         binding.txtDate.text = currentDate
@@ -176,9 +189,143 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                } else {
+//                        showExitDialog()
+                }
+            }
+
+        })
+
+
+
 
     }
 
+//    private fun showExitDialog() {
+//        val dialog_binding = CustomDia.inflate(layoutInflater)
+//        val dialog = Dialog(this)
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+//        dialog.setCancelable(false)
+//        dialog.setContentView(dialog_binding.root)
+//
+//        val window: Window = dialog.window!!
+//        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+//        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//        window.setGravity(Gravity.CENTER)
+//
+//        dialog.show()
+//
+//        dialog_binding.cardNo.setOnClickListener {
+//            dialog.dismiss()
+//            hideNavBar()
+//        }
+//
+//        dialog_binding.cardYes.setOnClickListener {
+//            dialog.dismiss()
+//            finishAffinity()
+//        }
+//
+//        dialog_binding.closeDialog.setOnClickListener {
+//            dialog.dismiss()
+//            hideNavBar()
+//        }
+//
+//    }
+
+    private fun showShareAppDialog() {
+        val dialog_binding = CustomDialogShareAppBinding.inflate(layoutInflater)
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(dialog_binding.root)
+
+        val window: Window = dialog.window!!
+        window.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window.setGravity(Gravity.CENTER)
+
+        dialog.show()
+
+        dialog_binding.yesId.setOnClickListener {
+            dialog.dismiss()
+            shareApplication()
+        }
+
+        dialog_binding.noId.setOnClickListener {
+            dialog.dismiss()
+            // Handle the case when the user clicks "No"
+        }
+    }
+
+    private fun showMoreAppsDialog() {
+        val dialogBinding = CustomDialogMoreAppsBinding.inflate(layoutInflater)
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(dialogBinding.root)
+
+        val window: Window = dialog.window!!
+        window.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window.setGravity(Gravity.CENTER)
+
+        dialog.show()
+
+        dialogBinding.yesId.setOnClickListener {
+            dialog.dismiss()
+            openMoreAppsOnPlayStore()
+        }
+
+        dialogBinding.noId.setOnClickListener {
+            dialog.dismiss()
+        }
+    }
+
+    private fun openMoreAppsOnPlayStore() {
+        val appPackageName = "your.package.name"  // Replace with the package name of your other apps
+        try {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName"))
+            intent.setPackage("com.android.vending")
+            startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            // If Play Store app is not available, open the Play Store website
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
+            )
+            startActivity(intent)
+        }
+    }
+
+
+
+    override fun onResume() {
+        super.onResume()
+//        (application as MainApplication).loadAd(this)
+//        adView.resume()
+        if(binding.drawerLayout.isDrawerOpen(GravityCompat.START)){
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+//        adView.pause()
+
+        if(binding.drawerLayout.isDrawerOpen(GravityCompat.START)){
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        }
+    }
     private fun loadfragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -189,5 +336,23 @@ class MainActivity : AppCompatActivity() {
 
     fun updateLocationText(location: String) {
         binding.txtLocation.text = location
+    }
+
+    private fun privacyPolicy(){
+        val privacyPolicyUrl = "https://sites.google.com/view/alawraq-studio/home"
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(privacyPolicyUrl))
+        startActivity(browserIntent)
+    }
+
+    private fun shareApplication() {
+        val appPackageName = packageName
+        val sendIntent = Intent()
+        sendIntent.action = Intent.ACTION_SEND
+        sendIntent.putExtra(
+            Intent.EXTRA_TEXT,
+            "Check out this amazing app: https://play.google.com/store/apps/details?id=$appPackageName"
+        )
+        sendIntent.type = "text/plain"
+        startActivity(Intent.createChooser(sendIntent, "Share via"))
     }
 }

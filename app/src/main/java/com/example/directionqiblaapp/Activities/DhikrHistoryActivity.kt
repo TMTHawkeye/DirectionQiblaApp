@@ -17,6 +17,10 @@ class DhikrHistoryActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setHistoryRecyclerView()
+
+        binding.backBtnId.setOnClickListener {
+            finish()
+        }
     }
 
     fun setHistoryRecyclerView(){

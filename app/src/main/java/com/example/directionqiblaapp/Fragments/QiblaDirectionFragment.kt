@@ -250,11 +250,11 @@ class QiblaDirectionFragment : Fragment(), SensorEventListener, LocationListener
 
         binding.nextCompassId.setOnClickListener {
             if (currentSkinIndex == skinsList.size - 1) {
-                Toast.makeText(
-                    requireContext(),
-                    "No more skins available",
-                    Toast.LENGTH_SHORT
-                ).show()
+//                Toast.makeText(
+//                    requireContext(),
+//                    "No more skins available",
+//                    Toast.LENGTH_SHORT
+//                ).show()
             } else {
                 currentSkinIndex = (currentSkinIndex + 1) % skinsList.size
                 val currentSkins = skinsList[currentSkinIndex]
@@ -267,11 +267,11 @@ class QiblaDirectionFragment : Fragment(), SensorEventListener, LocationListener
 
         binding.previousCompassId.setOnClickListener {
             if (currentSkinIndex == 0) {
-                Toast.makeText(
-                    requireContext(),
-                    "No more previous skins available",
-                    Toast.LENGTH_SHORT
-                ).show()
+//                Toast.makeText(
+//                    requireContext(),
+//                    "No more previous skins available",
+//                    Toast.LENGTH_SHORT
+//                ).show()
             } else {
                 currentSkinIndex = (currentSkinIndex - 1 + skinsList.size) % skinsList.size
                 val currentSkins = skinsList[currentSkinIndex]

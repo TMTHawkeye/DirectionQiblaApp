@@ -32,7 +32,6 @@ class PrayersAdapter(var ctxt: Context, var prayersData: ArrayList<Prayer>, val 
         holder.binding.prayerTimeValue.text=prayersData[position].time
 
 
-        // Check if the current item is the next prayer time
         if (isNextPrayerTime(position)) {
             holder.binding.root.setBackgroundResource(R.color.light_grey)
         } else {

@@ -55,6 +55,10 @@ class CalenderActivity : AppCompatActivity() , EventSelectionListner{
             }
         }
 
+        binding.backBtnId.setOnClickListener {
+            finish()
+        }
+
     }
 
     private fun getCalenderData() {

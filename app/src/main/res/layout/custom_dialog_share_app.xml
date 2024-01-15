@@ -46,7 +46,7 @@
                 android:layout_marginHorizontal="@dimen/_20sdp"/>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/dontAllow_id"
+                android:id="@+id/yes_id"
                 android:layout_width="@dimen/_100sdp"
                 android:layout_height="@dimen/_40sdp"
                 app:cardCornerRadius="@dimen/_10sdp"
@@ -67,7 +67,7 @@
 
             </com.google.android.material.card.MaterialCardView>
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/allow_id"
+                android:id="@+id/no_id"
                 android:layout_width="@dimen/_100sdp"
                 android:layout_height="@dimen/_40sdp"
                 app:layout_constraintStart_toEndOf="@+id/dontAllow_id"

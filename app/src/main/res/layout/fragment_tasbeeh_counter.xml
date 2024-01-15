@@ -28,7 +28,7 @@
             android:padding="16dp"
             android:text="@string/add_dhikr"
             android:textColor="@color/theme"
-            android:textSize="18sp"
+            android:textSize="@dimen/_10sdp"
             android:textStyle="bold" />
 
     </androidx.cardview.widget.CardView>
@@ -94,6 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/count_btn_id"
+            android:background="?attr/selectableItemBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.503"
