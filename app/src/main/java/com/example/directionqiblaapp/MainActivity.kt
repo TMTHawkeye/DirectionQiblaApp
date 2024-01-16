@@ -27,6 +27,7 @@ import com.example.directionqiblaapp.Fragments.NamesOfAllahFragment
 import com.example.directionqiblaapp.Fragments.PrayerTimeFragment
 import com.example.directionqiblaapp.Fragments.QiblaDirectionFragment
 import com.example.directionqiblaapp.Fragments.TasbeehCounterFragment
+import com.example.directionqiblaapp.Interfaces.ComingPrayerListener
 import com.example.directionqiblaapp.databinding.ActivityMainBinding
 import com.example.directionqiblaapp.databinding.CustomDialogExitAppsBinding
 import com.example.directionqiblaapp.databinding.CustomDialogMoreAppsBinding
@@ -402,4 +403,5 @@ class MainActivity : AppCompatActivity() {
         sendIntent.type = "text/plain"
         startActivity(Intent.createChooser(sendIntent, "Share via"))
     }
+
 }

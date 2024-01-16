@@ -32,10 +32,10 @@ class PrayerTimeSettingsFragment : Fragment() {
 
     fun getPrayerNotificationList():ArrayList<PrayerNotification>{
         val prayersList = ArrayList<PrayerNotification>()
-        prayersList.add(PrayerNotification("Mute",requireContext().getDrawable(R.drawable.mute_icon),false ))
+        prayersList.add(PrayerNotification("Mute",requireContext().getDrawable(R.drawable.mute_icon),false))
         prayersList.add(PrayerNotification("Vibrate", requireContext().getDrawable(R.drawable.vibrate_icon),false ))
-        prayersList.add(PrayerNotification("Beep", requireContext().getDrawable(R.drawable.beep_icon),false ))
-        prayersList.add(PrayerNotification("Takbeer", requireContext().getDrawable(R.drawable.takbeer_icon),false ))
+        prayersList.add(PrayerNotification("Beep", requireContext().getDrawable(R.drawable.beep_icon),false))
+        prayersList.add(PrayerNotification("Takbeer", requireContext().getDrawable(R.drawable.takbeer_icon),false))
         prayersList.add(PrayerNotification("Full Adhan", requireContext().getDrawable(R.drawable.takbeer_icon),false ))
         return prayersList
     }
@@ -44,5 +44,5 @@ class PrayerTimeSettingsFragment : Fragment() {
 data class PrayerNotification(
     val notificationName: String,
     val notificationIcon: Drawable?,
-    val notificationState: Boolean
+    val notificationState: Boolean,
 )

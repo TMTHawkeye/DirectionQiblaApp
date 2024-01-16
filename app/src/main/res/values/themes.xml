@@ -2,6 +2,8 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.DirectionQiblaApp" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowFullscreen">true</item>
+        <item name="fontFamily">@font/sedan_regular</item>
+        <item name="android:buttonTint">@color/blue</item>
 
     </style>
 

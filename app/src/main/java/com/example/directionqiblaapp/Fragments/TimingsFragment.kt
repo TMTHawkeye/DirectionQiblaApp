@@ -1,6 +1,7 @@
 package com.example.directionqiblaapp.Fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.directionqiblaapp.Adapters.PrayersAdapter
+import com.example.directionqiblaapp.Interfaces.ComingPrayerListener
 import com.example.directionqiblaapp.R
 import com.example.directionqiblaapp.ViewModels.PrayerTimesViewModel
 import com.example.directionqiblaapp.databinding.FragmentTimingsBinding
@@ -28,6 +30,7 @@ import java.util.concurrent.TimeUnit
 
 class TimingsFragment : Fragment() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+//    private var comingPrayerListener: ComingPrayerListener? = null
 
     val prayerTimesViewModel: PrayerTimesViewModel by viewModel()
     lateinit var binding: FragmentTimingsBinding
@@ -42,6 +45,14 @@ class TimingsFragment : Fragment() {
         return binding.root
     }
 
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        if (context is ComingPrayerListener) {
+//            comingPrayerListener = context
+//        } else {
+//            throw ClassCastException("$context must implement ComingPrayerListener")
+//        }
+//    }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun observePrayersTimimgs() {
@@ -63,28 +74,22 @@ class TimingsFragment : Fragment() {
                     )
                     val prayersList = ArrayList<Prayer>()
                     val prayers = it.data?.data?.timings
-                    val prayerNotification = PrayerNotification(
-                        "Beep", requireContext().getDrawable(
-                            R.drawable.mute_icon
-                        ), false
-                    )
-                    prayersList.add(Prayer("Fajar", prayers?.Fajr ?: "6:00 AM", prayerNotification))
+
+                    prayersList.add(Prayer("Fajar", prayers?.Fajr ?: "6:00 AM"))
                     prayersList.add(
                         Prayer(
                             "Duhar",
-                            prayers?.Dhuhr ?: "6:00 AM",
-                            prayerNotification
+                            prayers?.Dhuhr ?: "6:00 AM"
                         )
                     )
-                    prayersList.add(Prayer("Asar", prayers?.Asr ?: "6:00 AM", prayerNotification))
+                    prayersList.add(Prayer("Asar", prayers?.Asr ?: "6:00 AM"))
                     prayersList.add(
                         Prayer(
                             "Maghrib",
-                            prayers?.Maghrib ?: "6:00 AM",
-                            prayerNotification
+                            prayers?.Maghrib ?: "6:00 AM"
                         )
                     )
-                    prayersList.add(Prayer("Isha", prayers?.Isha ?: "6:00 AM", prayerNotification))
+                    prayersList.add(Prayer("Isha", prayers?.Isha ?: "6:00 AM"))
 
                     val nextPrayer = getNextPrayerTime(prayersList)
                     if (nextPrayer != null) {
@@ -97,6 +102,13 @@ class TimingsFragment : Fragment() {
                         )
                         binding.comingPrayerId.text =
                             "${nextPrayer?.first?.name} prayer in ${formattedTimeDifference}"
+
+//                        comingPrayerListener?.onComingPrayerTextChanged(binding.comingPrayerId.text.toString())
+
+                        if(PrayerTimeFragment.comingPrayerListener!=null){
+                            PrayerTimeFragment.comingPrayerListener?.onComingPrayerTextChanged(binding.comingPrayerId.text.toString())
+                        }
+
                     } else {
                         Log.d("Prayers_Data", "No upcoming prayer times found.")
                         binding.comingPrayerId.text = "No upcoming prayer times found"
@@ -113,6 +125,7 @@ class TimingsFragment : Fragment() {
             }
         })
     }
+
 
 
     private fun getNextPrayerTime(prayersList: List<Prayer>): Pair<Prayer?, Long> {
@@ -210,5 +223,5 @@ class TimingsFragment : Fragment() {
 }
 
 class Prayer(
-    var name: String, var time: String, var selectedNotification: PrayerNotification
+    var name: String, var time: String
 ) : Serializable

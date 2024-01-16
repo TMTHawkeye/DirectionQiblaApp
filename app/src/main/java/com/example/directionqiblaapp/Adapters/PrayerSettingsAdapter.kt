@@ -8,10 +8,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.directionqiblaapp.Fragments.Prayer
 import com.example.directionqiblaapp.Fragments.PrayerNotification
+import com.example.directionqiblaapp.Fragments.PrayerTimeSettingsFragment
+import com.example.directionqiblaapp.Fragments.TimingsFragment
 import com.example.directionqiblaapp.R
+import io.paperdb.Paper
 
 class PrayerSettingsAdapter(
     var ctxt: Context,
@@ -21,6 +25,9 @@ class PrayerSettingsAdapter(
     RecyclerView.Adapter<PrayerSettingsAdapter.viewHolder>() {
     private var selectedPosition = 0
 
+    init {
+        selectNotificationForPrayer(prayerData.name)
+    }
     class viewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textNotification: TextView = itemView.findViewById(R.id.text_notification)
         val notifIcon: ImageView = itemView.findViewById(R.id.notif_icon)
@@ -28,7 +35,6 @@ class PrayerSettingsAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
-        selectNotificationForPrayer(prayerData.name)
 
         val view = LayoutInflater.from(parent.context).inflate(
             R.layout.item_notification_settings,
@@ -47,11 +53,30 @@ class PrayerSettingsAdapter(
 
         // Set a click listener for the radio button
         holder.radioNotif.setOnClickListener {
+            saveSelectedNotificationPosition(position)
             // Update the selected position
             selectedPosition = holder.adapterPosition
+            saveSelectedNotificationMethod(prayerNotifList[selectedPosition].notificationName)
+
+            val prayerSettingsFragment = TimingsFragment()
+
+            val fragmentManager = (ctxt as AppCompatActivity).supportFragmentManager
+            fragmentManager.beginTransaction()
+                .replace(R.id.container, prayerSettingsFragment)
+                .addToBackStack(null)
+                .commit()
             // Notify the adapter about the data set changes
             notifyDataSetChanged()
         }
+    }
+
+    private fun saveSelectedNotificationMethod(notificationMethod: String) {
+        Paper.book().write("selectedNotificationMethod", notificationMethod)
+        Log.d("PrayerSettingsAdapter", "Selected notification method: $notificationMethod")
+    }
+
+    private fun saveSelectedNotificationPosition(position: Int) {
+        Paper.book().write("selectedNotificationPosition", position)
     }
 
 
@@ -60,13 +85,20 @@ class PrayerSettingsAdapter(
     }
 
     fun selectNotificationForPrayer(prayerName: String) {
-        val index = prayerNotifList.indexOfFirst { it.notificationName == prayerName }
+        val savedPosition=getSelectedNotificationPosition()
+        val index = prayerNotifList.indexOfFirst { it.notificationName == prayerNotifList.get(savedPosition!!).notificationName }
         if (index != -1) {
             selectedPosition = index
             Log.d("TAG", "selectNotificationForPrayer: $index")
             notifyDataSetChanged()
         }
     }
+
+    fun getSelectedNotificationPosition() : Int?{
+        return Paper.book().read<Int>("selectedNotificationPosition",0)
+    }
+
+
 
 }
 

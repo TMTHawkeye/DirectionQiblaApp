@@ -86,4 +86,7 @@
     <string name="exit">Exit?</string>
     <string name="exit_desc">Are you sure you want to exit app?</string>
     <string name="rate">Rate Us</string>
+    <string name="qibla_direction">Qibla\nDirection</string>
+    <string name="direction">Direction</string>
+    <string name="qibla">Qibla</string>
 </resources>
