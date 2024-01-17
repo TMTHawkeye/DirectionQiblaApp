@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.directionqiblaapp.Adapters.DhikrAdapter
+import com.example.directionqiblaapp.BuildConfig
+import com.example.directionqiblaapp.MainApplication
 import com.example.directionqiblaapp.ModelClasses.model.DhikrModel.Dhikr
 import com.example.directionqiblaapp.databinding.ActivityDhikrHistoryBinding
 import io.paperdb.Paper
@@ -15,12 +17,22 @@ class DhikrHistoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding=ActivityDhikrHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        AdManager.getInstance().loadNativeAd(
+            this@DhikrHistoryActivity,
+            BuildConfig.native_home,
+            binding.adFrame,
+            binding.shimmerViewContainer
+        )
         setHistoryRecyclerView()
 
         binding.backBtnId.setOnClickListener {
             finish()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (application as MainApplication).loadAd(this)
     }
 
     fun setHistoryRecyclerView(){

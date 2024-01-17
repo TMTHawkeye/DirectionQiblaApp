@@ -17,6 +17,7 @@ import android.widget.CalendarView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.directionqiblaapp.Adapters.EventsAdapter
+import com.example.directionqiblaapp.BuildConfig
 import com.example.directionqiblaapp.Fragments.EventsBottomSheet
 import com.example.directionqiblaapp.Interfaces.EventSelectionListner
 import com.example.directionqiblaapp.MainActivity
@@ -51,7 +52,12 @@ class CalenderActivity : AppCompatActivity() , EventSelectionListner, LocationLi
         setContentView(binding.root)
         adapter=EventsAdapter(this)
         binding.eventsRV.layoutManager=LinearLayoutManager(this@CalenderActivity)
-
+        AdManager.getInstance().loadNativeAd(
+            this@CalenderActivity,
+            BuildConfig.native_home,
+            binding.adFrame,
+            binding.shimmerViewContainer
+        )
         getCalenderData()
 
         locationManager =

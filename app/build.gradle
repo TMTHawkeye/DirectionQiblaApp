@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id("kotlin-kapt")
+
 }
 
 android {
@@ -13,14 +15,21 @@ android {
         targetSdk 34
         versionCode 1
         versionName "1.0"
+        setProperty("archivesBaseName", "QiblaDirection-$versionName")
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -32,6 +41,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 
     bundle {
@@ -39,6 +49,54 @@ android {
             enableSplit = false
         }
     }
+
+    flavorDimensions += ["defaultFlavour"]
+
+
+    productFlavors {
+        create("Prod") {
+            dimension = "defaultFlavour"
+            resValue("string", "admob_app_id", "\"ca-app-pub-3940256099942544~3347511713\"")
+
+            buildConfigField(
+                    "String",
+                    "app_open_others",
+                    "\"ca-app-pub-3940256099942544/9257395921\""
+            )
+            buildConfigField(
+                    "String",
+                    "native_home",
+                    "\"ca-app-pub-3940256099942544/2247696110\""
+            )
+
+            buildConfigField ("Boolean", "env_dev", "false")
+
+        }
+        create("Dev") {
+            dimension = "defaultFlavour"
+
+            resValue("string", "admob_app_id", "\"ca-app-pub-3940256099942544~3347511713\"")
+
+            buildConfigField(
+                    "String",
+                    "app_open_others",
+                    "\"ca-app-pub-3940256099942544/9257395921\""
+            )
+
+            buildConfigField(
+                    "String",
+                    "native_home",
+                    "\"ca-app-pub-3940256099942544/2247696110\""
+            )
+
+
+
+            buildConfigField ("Boolean", "env_dev", "true")
+
+        }
+    }
+
+
 }
 
 dependencies {
@@ -49,6 +107,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.7.6'
     implementation 'androidx.navigation:navigation-ui-ktx:2.7.6'
+    implementation 'androidx.lifecycle:lifecycle-process:2.7.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -107,4 +166,11 @@ dependencies {
 
     implementation 'com.zeugmasolutions.localehelper:locale-helper-android:1.5.1'
 
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+    implementation 'com.google.android.gms:play-services-ads:22.6.0'
+
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation ("androidx.lifecycle:lifecycle-process:2.6.2")
+    kapt ("androidx.lifecycle:lifecycle-compiler:2.6.2")
 }

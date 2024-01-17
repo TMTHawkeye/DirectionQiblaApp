@@ -13,6 +13,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.directionqiblaapp.Activities.AdManager
+import com.example.directionqiblaapp.BuildConfig
 import com.example.directionqiblaapp.Interfaces.ComingPrayerListener
 import com.example.directionqiblaapp.R
 import com.example.directionqiblaapp.Service.NotificationService
@@ -34,6 +36,13 @@ class PrayerTimeFragment : Fragment(), ComingPrayerListener {
     ): View? {
         binding = FragmentPrayerTimeBinding.inflate(layoutInflater)
         comingPrayerListener = this
+
+        AdManager.getInstance().loadNativeAd(
+            requireContext(),
+            BuildConfig.native_home,
+            binding.adFrame,
+            binding.shimmerViewContainer
+        )
         return binding.root
     }
 

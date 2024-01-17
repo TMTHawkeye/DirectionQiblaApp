@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.directionqiblaapp.Adapters.LanguagesAdapter
+import com.example.directionqiblaapp.BuildConfig
 import com.example.directionqiblaapp.R
 import com.example.directionqiblaapp.databinding.ActivityLanguagesBinding
 import com.zeugmasolutions.localehelper.LocaleHelper
@@ -17,13 +18,21 @@ class LanguagesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding=ActivityLanguagesBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        AdManager.getInstance().loadNativeAd(
+            this@LanguagesActivity,
+            BuildConfig.native_home,
+            binding.adFrame,
+            binding.shimmerViewContainer
+        )
         val languageList=getLanguagesList()
         binding.languagesRV.layoutManager=LinearLayoutManager(this@LanguagesActivity)
         val adapter=LanguagesAdapter(this@LanguagesActivity,languageList)
         binding.languagesRV.adapter=adapter
 
 
+        binding.backBtnId.setOnClickListener {
+            finish()
+        }
     }
 
     private fun getLanguagesList():ArrayList<Language> {

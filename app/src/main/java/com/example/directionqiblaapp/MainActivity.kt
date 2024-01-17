@@ -33,17 +33,20 @@ import com.example.directionqiblaapp.databinding.CustomDialogExitAppsBinding
 import com.example.directionqiblaapp.databinding.CustomDialogMoreAppsBinding
 import com.example.directionqiblaapp.databinding.CustomDialogPrivacyPolicyBinding
 import com.example.directionqiblaapp.databinding.CustomDialogShareAppBinding
+import com.google.android.gms.ads.AdView
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+    private lateinit var adView: AdView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        adView = AdView(this)
 
         val window: Window = this@MainActivity.window
         window.addFlags(
@@ -208,6 +211,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
+
     private fun showExitDialog() {
         val dialog_binding = CustomDialogExitAppsBinding.inflate(layoutInflater)
         val dialog = Dialog(this)
@@ -359,16 +364,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-//        (application as MainApplication).loadAd(this)
-//        adView.resume()
         if(binding.drawerLayout.isDrawerOpen(GravityCompat.START)){
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         }
+        (application as MainApplication).loadAd(this)
+        adView.resume()
     }
 
     override fun onPause() {
         super.onPause()
-//        adView.pause()
+        adView.pause()
 
         if(binding.drawerLayout.isDrawerOpen(GravityCompat.START)){
             binding.drawerLayout.closeDrawer(GravityCompat.START)

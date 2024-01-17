@@ -31,6 +31,7 @@ import android.renderscript.Allocation
 import android.renderscript.Element
 import android.renderscript.RenderScript
 import android.renderscript.ScriptIntrinsicBlur
+import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -41,15 +42,26 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.example.directionqiblaapp.Activities.AdManager
 import com.example.directionqiblaapp.Activities.CalenderActivity
+import com.example.directionqiblaapp.BuildConfig
 import com.example.directionqiblaapp.MainActivity
 import com.example.directionqiblaapp.R
 import com.example.directionqiblaapp.databinding.CustomDialogLocationBinding
 import com.example.directionqiblaapp.databinding.FragmentQiblaDirectionBinding
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.OnUserEarnedRewardListener
+import com.google.android.gms.ads.admanager.AdManagerAdRequest
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
+import io.paperdb.Paper
 import jp.wasabeef.blurry.Blurry
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -64,6 +76,7 @@ import kotlin.math.roundToInt
 
 class QiblaDirectionFragment : Fragment(), SensorEventListener, LocationListener {
     lateinit var binding: FragmentQiblaDirectionBinding
+    var lockedSkinsList:MutableList<Int>?=null
 
     private var vibrator: Vibrator? = null
     private var sensorManager: SensorManager? = null
@@ -72,10 +85,12 @@ class QiblaDirectionFragment : Fragment(), SensorEventListener, LocationListener
     private var isBottomSheetVisible = false
     var skinsList = ArrayList<Skins>()
     private var currentSkinIndex = 0
+    private var isLoading = false
 
     private var renderScript: RenderScript? = null
     private var blurScript: ScriptIntrinsicBlur? = null
 
+    private var rewardedAd: RewardedAd? = null
 
 
     private val kaabaLocation = Location("Kaaba").apply {
@@ -88,11 +103,21 @@ class QiblaDirectionFragment : Fragment(), SensorEventListener, LocationListener
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentQiblaDirectionBinding.inflate(layoutInflater)
-
+        AdManager.getInstance().loadNativeAd(
+            requireContext(),
+            BuildConfig.native_home,
+            binding.adFrame,
+            binding.shimmerViewContainer
+        )
         initSkinsList()
         // Get the skins for the current index
         val currentSkins = skinsList[currentSkinIndex]
+        lockedSkinsList= Paper.book().read<MutableList<Int>>("PAPER_KEY_UNLOCKED_SKINS",null)
+        if(lockedSkinsList==null) {
+            lockedSkinsList = mutableListOf(4, 5, 6, 7, 8)
+        }
         updateRewardAdVisibility()
+
 
         // Update the outer and inner skins
         binding.outerCore.setImageDrawable(currentSkins.outerSkin)
@@ -165,7 +190,7 @@ class QiblaDirectionFragment : Fragment(), SensorEventListener, LocationListener
     }
 
     private fun updateRewardAdVisibility() {
-        if (currentSkinIndex >= 4) {
+        if (lockedSkinsList!!.contains(currentSkinIndex)) {
             binding.rewardAdId.visibility = View.VISIBLE
             binding.textView.text = getString(R.string.locked)
 //            blurImageView(binding.innerCompassId, 25f)
@@ -255,6 +280,9 @@ class QiblaDirectionFragment : Fragment(), SensorEventListener, LocationListener
 
         }
 
+        if (rewardedAd == null && !isLoading) {
+            loadRewardedAd()
+        }
 
         binding.hijriCalenderCardId.setOnClickListener {
             startActivity(Intent(requireContext(), CalenderActivity::class.java))
@@ -293,7 +321,90 @@ class QiblaDirectionFragment : Fragment(), SensorEventListener, LocationListener
 
             }
         }
+        loadRewardedAd()
 
+        binding.rewardAdId.setOnClickListener {
+            showRewardedVideo()
+        }
+
+
+    }
+
+    private fun loadRewardedAd() {
+        if (rewardedAd == null) {
+            isLoading = true
+
+            var adRequest = AdRequest.Builder().build()
+            RewardedAd.load(requireContext(), "ca-app-pub-3940256099942544/5224354917",
+                adRequest, object : RewardedAdLoadCallback() {
+                    override fun onAdFailedToLoad(adError: LoadAdError) {
+                        Log.d("TAG_ad", adError.toString())
+                        rewardedAd = null
+                        isLoading = false
+
+                    }
+
+
+                    override fun onAdLoaded(ad: RewardedAd) {
+                        Log.d("TAG_ad", "Ad was loaded.")
+                        rewardedAd = ad
+                        isLoading = false
+
+                    }
+                })
+        }
+    }
+
+    private fun showRewardedVideo() {
+//        binding.showVideoButton.visibility = View.INVISIBLE
+        if (rewardedAd != null && !isLoading) {
+            rewardedAd?.fullScreenContentCallback =
+                object : FullScreenContentCallback() {
+                    override fun onAdDismissedFullScreenContent() {
+                        Log.d("TAG_showRewardedVideo", "Ad was dismissed.")
+                        // Don't forget to set the ad reference to null so you
+                        // don't show the ad a second time.
+                        rewardedAd = null
+//                        if (googleMobileAdsConsentManager.canRequestAds) {
+                        loadRewardedAd()
+//                        }
+                    }
+
+                    override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                        Log.d("TAG_showRewardedVideo", "Ad failed to show.")
+                        // Don't forget to set the ad reference to null so you
+                        // don't show the ad a second time.
+                        rewardedAd = null
+                    }
+
+                    override fun onAdShowedFullScreenContent() {
+                        Log.d("TAG_showRewardedVideo", "Ad showed fullscreen content.")
+                    }
+                }
+
+            rewardedAd?.show(
+                requireActivity(),
+                OnUserEarnedRewardListener { rewardItem ->
+                    Log.d("TAG_showRewardedVideo", "$currentSkinIndex")
+                    unlockSkin(currentSkinIndex)
+                }
+            )
+        } else {
+            loadRewardedAd()
+//            Toast.makeText(requireContext(), "Ad is null", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    private fun unlockSkin(unlockedSkinIndex: Int) {
+        lockedSkinsList?.remove(unlockedSkinIndex)
+        val currentSkins = skinsList[currentSkinIndex]
+        binding.outerCore.setImageDrawable(currentSkins.outerSkin)
+        binding.innerCompassId.setImageDrawable(currentSkins.innerSkin)
+        unblurImageView(binding.innerCompassId)
+        binding.rewardAdId.visibility = View.GONE
+
+        Paper.book().write<MutableList<Int>>("PAPER_KEY_UNLOCKED_SKINS", lockedSkinsList!!)
 
     }
 
@@ -368,7 +479,11 @@ class QiblaDirectionFragment : Fragment(), SensorEventListener, LocationListener
         dialog.show()
 
         dialog_binding.dontAllowId.setOnClickListener {
-            Toast.makeText(requireContext(), "Some Features may not work properly!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Some Features may not work properly!",
+                Toast.LENGTH_SHORT
+            ).show()
 
             dialog.dismiss()
         }
@@ -411,14 +526,18 @@ class QiblaDirectionFragment : Fragment(), SensorEventListener, LocationListener
 
     override fun onProviderEnabled(provider: String) {
         // Handle provider enabled
-        Toast.makeText(requireContext(), "Location provider $provider is enabled", Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            requireContext(),
+            "Location provider $provider is enabled",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
 
     override fun onSensorChanged(event: SensorEvent?) {
-        if (currentSkinIndex >= 4) {
-            binding.outerCore.rotation=0f
-            binding.innerCompassId.rotation=0f
+        if (lockedSkinsList!!.contains(currentSkinIndex)) {
+            binding.outerCore.rotation = 0f
+            binding.innerCompassId.rotation = 0f
             binding.textView.text = getString(R.string.locked)
         } else {
 

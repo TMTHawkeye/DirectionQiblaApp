@@ -18,7 +18,9 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageView
 import android.widget.Toast
+import com.example.directionqiblaapp.Activities.AdManager
 import com.example.directionqiblaapp.Activities.DhikrHistoryActivity
+import com.example.directionqiblaapp.BuildConfig
 import com.example.directionqiblaapp.Interfaces.DhikrSelectionListner
 import com.example.directionqiblaapp.ModelClasses.model.DhikrModel.Dhikr
 import com.example.directionqiblaapp.R
@@ -45,6 +47,13 @@ class TasbeehCounterFragment : Fragment(),DhikrSelectionListner {
         savedInstanceState: Bundle?
     ): View? {
         binding=FragmentTasbeehCounterBinding.inflate(layoutInflater,container,false)
+
+        AdManager.getInstance().loadNativeAd(
+            requireContext(),
+            BuildConfig.native_home,
+            binding.adFrame,
+            binding.shimmerViewContainer
+        )
 
         binding.countId.text=countTasbeeh.toString()
 
