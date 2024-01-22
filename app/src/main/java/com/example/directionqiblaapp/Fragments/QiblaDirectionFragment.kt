@@ -375,6 +375,9 @@ class QiblaDirectionFragment : Fragment(), SensorEventListener, LocationListener
                         // Don't forget to set the ad reference to null so you
                         // don't show the ad a second time.
                         rewardedAd = null
+                        loadRewardedAd()
+
+
                     }
 
                     override fun onAdShowedFullScreenContent() {

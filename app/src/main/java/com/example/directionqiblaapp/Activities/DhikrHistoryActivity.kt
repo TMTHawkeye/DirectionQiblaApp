@@ -37,11 +37,17 @@ class DhikrHistoryActivity : AppCompatActivity() {
 
     fun setHistoryRecyclerView(){
         var dhikrList= Paper.book().read<ArrayList<Dhikr?>>("Dhikr_LIST",ArrayList())
+        var newDhikrList=ArrayList<Dhikr?>()
         if(dhikrList?.size!=0){
+            dhikrList?.forEach {
+                if(it?.dhikrCount!=0){
+                    newDhikrList.add(it)
+                }
+            }
             binding.dhikrRV.visibility= View.VISIBLE
             binding.noHistoryFoundId.visibility= View.GONE
             binding.dhikrRV.layoutManager=LinearLayoutManager(this@DhikrHistoryActivity)
-            binding.dhikrRV.adapter=DhikrAdapter(this@DhikrHistoryActivity,dhikrList!!)
+            binding.dhikrRV.adapter=DhikrAdapter(this@DhikrHistoryActivity,newDhikrList)
         }
         else{
             binding.dhikrRV.visibility= View.GONE

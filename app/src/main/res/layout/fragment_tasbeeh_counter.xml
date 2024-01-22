@@ -11,31 +11,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/add_dhikr_id"
-            android:layout_width="@dimen/_100sdp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/activity_bg"
             android:layout_marginTop="@dimen/_10sdp"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="@dimen/_30sdp"
+            app:strokeColor="@color/theme"
+            app:strokeWidth="@dimen/_1sdp"
             app:cardElevation="@dimen/_8sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:paddingVertical="@dimen/_12sdp"
+                android:paddingHorizontal="@dimen/_30sdp"
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="?attr/selectableItemBackground"
-                android:padding="16dp"
                 android:text="@string/add_dhikr"
                 android:textColor="@color/theme"
-                android:textSize="@dimen/_10sdp"
+                android:textSize="@dimen/_12sdp"
                 android:textStyle="bold" />
 
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
             android:id="@+id/dhikr_name_id"
@@ -45,6 +48,7 @@
             android:textColor="@color/theme"
             android:textSize="@dimen/_20sdp"
             android:textStyle="bold"
+            android:fontFamily="sans-serif"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -71,8 +75,8 @@
 
             <ImageView
                 android:id="@+id/save_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
                 android:src="@drawable/save_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -83,8 +87,8 @@
 
             <ImageView
                 android:id="@+id/reset_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="16dp"
+                android:layout_height="19dp"
                 android:src="@drawable/save_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -93,24 +97,30 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.540" />
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/count_btn_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
+                android:layout_width="73dp"
+                android:layout_height="68dp"
                 android:src="@drawable/count_btn_id"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.503"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.80" />
+                app:layout_constraintVertical_bias="0.80"
+                android:clickable="true"
+                android:scaleType="fitCenter"
+                android:stateListAnimator="@animator/button_state_animator"
+                android:focusable="true" />
+
 
             <TextView
                 android:id="@+id/count_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_20sdp"
+                android:text="0000"
+                android:textColor="@color/theme"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -125,6 +135,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
+            android:elevation="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_20sdp"
             android:src="@drawable/vibrate_img"
             app:layout_constraintEnd_toStartOf="@+id/card_sound_on"
             app:layout_constraintStart_toStartOf="parent"
@@ -135,6 +147,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
+            android:elevation="@dimen/_10sdp"
             android:src="@drawable/tune_img"
             app:layout_constraintEnd_toStartOf="@+id/card_history"
             app:layout_constraintStart_toEndOf="@+id/card_vibrate"
@@ -147,7 +160,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
             android:src="@drawable/history_img"
-
+            android:elevation="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/card_sound_on"
             app:layout_constraintTop_toBottomOf="@+id/tasbeeh_bg_id" />

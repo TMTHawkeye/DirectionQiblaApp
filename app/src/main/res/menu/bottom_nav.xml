@@ -22,7 +22,7 @@
         android:id="@+id/Tasbeeh"
         android:title="@string/title_count"
         android:iconTint="@color/theme"
-        android:icon="@drawable/unselected_tasbeeh_icon"
+        android:icon="@drawable/tasbeeh_icon"
         app:actionLayout="@layout/menu_item_layout"
         />
 

@@ -34,6 +34,7 @@ import com.example.directionqiblaapp.databinding.CustomDialogMoreAppsBinding
 import com.example.directionqiblaapp.databinding.CustomDialogPrivacyPolicyBinding
 import com.example.directionqiblaapp.databinding.CustomDialogShareAppBinding
 import com.google.android.gms.ads.AdView
+import io.paperdb.Paper
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -41,6 +42,7 @@ import java.util.Locale
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private lateinit var adView: AdView
+    var location=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -170,6 +172,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNav.selectedItemId = R.id.Qibla
         loadfragment(QiblaDirectionFragment())
+
+
 
         binding.bottomNav.setOnItemSelectedListener {
 
@@ -388,6 +392,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun updateLocationText(location: String) {
+        this.location=location
         binding.txtLocation.text = location
     }
 

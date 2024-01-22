@@ -83,7 +83,8 @@ class DhikarBottomSheet : BottomSheetDialogFragment() {
             binding.dhikrNameETId.text.toString(),
             limit,
             0,
-            currentDate
+            currentDate,
+            null
         )
         return dhikrData
     }

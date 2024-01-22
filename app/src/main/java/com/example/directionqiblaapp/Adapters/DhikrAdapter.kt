@@ -11,6 +11,7 @@ import android.view.Window
 import androidx.recyclerview.widget.RecyclerView
 import com.example.directionqiblaapp.Activities.DhikrHistoryActivity
 import com.example.directionqiblaapp.ModelClasses.model.DhikrModel.Dhikr
+import com.example.directionqiblaapp.R
 import com.example.directionqiblaapp.databinding.CustomDialogDeleteBinding
 import com.example.directionqiblaapp.databinding.CustomDialogLocationBinding
 import com.example.directionqiblaapp.databinding.ItemHistoryDhikrBinding
@@ -32,8 +33,8 @@ class DhikrAdapter(val ctxt: Context, val dhikrList: ArrayList<Dhikr?>) : Recycl
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
         holder.binding.dhikrNameId.text=dhikrList.get(position)?.dhikrNAme
-        holder.binding.dateSavedId.text=dhikrList.get(position)?.date
-        holder.binding.countValue.text=dhikrList.get(position)?.dhikrCount.toString()
+        holder.binding.dateSavedId.text= ctxt.getString(R.string.saved_on)+dhikrList.get(position)?.date+" at "+dhikrList.get(position)?.time
+        holder.binding.countValue.text= ctxt.getString(R.string.count)+dhikrList.get(position)?.dhikrCount.toString()
 
         holder.binding.deleteItemId.setOnClickListener {
             showDeleteDialog(position)

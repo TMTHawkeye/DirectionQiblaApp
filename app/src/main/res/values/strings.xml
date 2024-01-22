@@ -25,7 +25,7 @@
     <string name="title_activity_events_bottom_sheet">EventsBottomSheet</string>
     <string name="title_home">Home</string>
     <string name="title_prayer">Prayers</string>
-    <string name="title_count">Count</string>
+    <string name="title_count">Tasbeeh</string>
     <string name="title_names">Names</string>
 
     <string name="title_dashboard">Dashboard</string>
@@ -89,4 +89,8 @@
     <string name="qibla_direction">Qibla\nDirection</string>
     <string name="direction">Direction</string>
     <string name="qibla">Qibla</string>
+    <string name="start_over">Start Over?</string>
+    <string name="do_you_want_to_start_over">Do you want to start over?</string>
+    <string name="count">"Count "</string>
+    <string name="saved_on">"Saved on "</string>
 </resources>

@@ -13,7 +13,7 @@
     <color name="yellow">#FFC700</color>
 
     <color name="onboarding_background">#E4F1F8</color>
-    <color name="activity_bg">#F2FEFF</color>
+    <color name="activity_bg">#E4F1F8</color>
 
     <color name="bottom_nav_icon_selected">#266E73</color>
     <color name="bottom_nav_icon_unselected">#424141</color>

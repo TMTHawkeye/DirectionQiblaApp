@@ -27,26 +27,29 @@ import com.example.directionqiblaapp.R
 import com.example.directionqiblaapp.databinding.CustomDialogDeleteBinding
 import com.example.directionqiblaapp.databinding.CustomDialogResetDhikrBinding
 import com.example.directionqiblaapp.databinding.CustomDialogSaveDhikrBinding
+import com.example.directionqiblaapp.databinding.CustomDialogStartOverBinding
 import com.example.directionqiblaapp.databinding.FragmentTasbeehCounterBinding
 import io.paperdb.Paper
+import java.text.SimpleDateFormat
+import java.util.Date
 
-class TasbeehCounterFragment : Fragment(),DhikrSelectionListner {
-    lateinit var binding:FragmentTasbeehCounterBinding
+class TasbeehCounterFragment : Fragment(), DhikrSelectionListner {
+    lateinit var binding: FragmentTasbeehCounterBinding
     private var isBottomSheetVisible = false
-    private var isDhikrSelected=false
+    private var isDhikrSelected = false
 
     private var isVibrationEnabled = true
     private var isSoundEnabled = true
 
     private lateinit var vibrator: Vibrator
     private lateinit var mediaPlayer: MediaPlayer
-    var dhikrItem:Dhikr? = null
-    var countTasbeeh=0
+    var dhikrItem: Dhikr? = null
+    var countTasbeeh = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding=FragmentTasbeehCounterBinding.inflate(layoutInflater,container,false)
+        binding = FragmentTasbeehCounterBinding.inflate(layoutInflater, container, false)
 
         AdManager.getInstance().loadNativeAd(
             requireContext(),
@@ -54,8 +57,8 @@ class TasbeehCounterFragment : Fragment(),DhikrSelectionListner {
             binding.adFrame,
             binding.shimmerViewContainer
         )
-
-        binding.countId.text=countTasbeeh.toString()
+//        loadDhikrItemFromPaperDB()
+        binding.countId.text = String.format("%04d", countTasbeeh)
 
         // Restore saved states from PaperDB
         isVibrationEnabled = Paper.book().read("isVibrationEnabled", true)!!
@@ -78,19 +81,17 @@ class TasbeehCounterFragment : Fragment(),DhikrSelectionListner {
         }
 
         vibrator = requireContext().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.beep) // Add a short beep sound file (e.g., beep_sound.mp3) to the "res/raw" directory
-
+        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.beep)
 
         binding.countBtnId.setOnClickListener {
-            if(dhikrItem!=null) {
-                if(dhikrItem?.dhikrLimit.equals("infinite")){
+            if (dhikrItem != null) {
+                if (dhikrItem?.dhikrLimit.equals("infinite")) {
                     countTasbeeh++
-                    binding.countId.text = countTasbeeh.toString()
-                }
-                else{
+                    binding.countId.text = String.format("%04d", countTasbeeh)
+                } else {
                     if (countTasbeeh < dhikrItem?.dhikrLimit.toString().toInt()) {
                         countTasbeeh++
-                        binding.countId.text = countTasbeeh.toString()
+                        binding.countId.text = String.format("%04d", countTasbeeh)
                     } else {
                         dhikrItem?.dhikrCount = binding.countId.text.toString().toInt()
                         updateDhikrCountInPaperDB(dhikrItem)
@@ -106,9 +107,13 @@ class TasbeehCounterFragment : Fragment(),DhikrSelectionListner {
                 }
 
 
-            }
-            else{
-                Toast.makeText(requireContext(), "Please select the Dhikr first!!", Toast.LENGTH_SHORT).show()
+            } else {
+                if (!isBottomSheetVisible) {
+                    val bottomSheetFragment = DhikarBottomSheet()
+                    bottomSheetFragment.setListener(this)
+                    bottomSheetFragment.show(childFragmentManager, "EVENT_SELECTION")
+                    isBottomSheetVisible = true
+                }
             }
         }
 
@@ -117,10 +122,9 @@ class TasbeehCounterFragment : Fragment(),DhikrSelectionListner {
         }
 
         binding.saveId.setOnClickListener {
-            if(dhikrItem!=null && !binding.countId.text.equals("0")){
+            if (dhikrItem != null && !binding.countId.text.equals("0")) {
                 showSaveDialog()
-            }
-            else{
+            } else {
                 Toast.makeText(requireContext(), "Count cannot be 0", Toast.LENGTH_SHORT).show()
             }
         }
@@ -129,13 +133,15 @@ class TasbeehCounterFragment : Fragment(),DhikrSelectionListner {
             if (!isBottomSheetVisible) {
                 val bottomSheetFragment = DhikarBottomSheet()
                 bottomSheetFragment.setListener(this)
-                bottomSheetFragment.show(childFragmentManager,"EVENT_SELECTION")
+                bottomSheetFragment.show(childFragmentManager, "EVENT_SELECTION")
                 isBottomSheetVisible = true
             }
         }
 
-        binding.cardHistory.setOnClickListener{
-            if(dhikrItem?.dhikrCount!=0) {
+        binding.cardHistory.setOnClickListener {
+            var dhikrList= Paper.book().read<ArrayList<Dhikr?>>("Dhikr_LIST",ArrayList())
+
+            if (dhikrList?.size != 0) {
                 startActivity(Intent(requireContext(), DhikrHistoryActivity::class.java))
             }
         }
@@ -143,36 +149,27 @@ class TasbeehCounterFragment : Fragment(),DhikrSelectionListner {
         return binding.root
     }
 
+//    private fun saveDhikrItemToPaperDB() {
+//        if (dhikrItem != null) {
+//            Paper.book().write("currentDhikrItem", dhikrItem!!)
+//        }
+//    }
+//
+//    private fun loadDhikrItemFromPaperDB() {
+//        dhikrItem = Paper.book().read("currentDhikrItem", null)
+//        if (dhikrItem != null) {
+//            binding.dhikrNameId.text = dhikrItem?.dhikrNAme
+//        }
+//    }
+
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        saveDhikrItemToPaperDB()
+//    }
+
     private fun showSaveDialog() {
-            val dialogBinding = CustomDialogSaveDhikrBinding.inflate(LayoutInflater.from(requireContext()))
-            val dialog = Dialog(requireContext())
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dialog.setCancelable(false)
-            dialog.setContentView(dialogBinding.root)
-
-            val window: Window = dialog.window!!
-            window.setLayout(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            window.setGravity(Gravity.CENTER)
-
-            dialog.show()
-
-            dialogBinding.yesId.setOnClickListener {
-                dhikrItem?.dhikrCount = binding.countId.text.toString().toInt()
-                updateDhikrCountInPaperDB(dhikrItem)
-                dialog.dismiss()
-            }
-
-            dialogBinding.noId.setOnClickListener {
-                dialog.dismiss()
-            }
-
-    }
-    private fun showResetDialog() {
-        val dialogBinding = CustomDialogResetDhikrBinding.inflate(LayoutInflater.from(requireContext()))
+        val dialogBinding =
+            CustomDialogSaveDhikrBinding.inflate(LayoutInflater.from(requireContext()))
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
@@ -189,16 +186,82 @@ class TasbeehCounterFragment : Fragment(),DhikrSelectionListner {
         dialog.show()
 
         dialogBinding.yesId.setOnClickListener {
-            countTasbeeh=0
-            binding.countId.text=countTasbeeh.toString()
-            binding.dhikrNameId.text=""
-            binding.dhikrNameId.visibility=View.GONE
-            binding.addDhikrId.visibility=View.VISIBLE
-            dhikrItem=null
+            dhikrItem?.dhikrCount = binding.countId.text.toString().toInt()
+            updateDhikrCountInPaperDB(dhikrItem)
             dialog.dismiss()
         }
 
         dialogBinding.noId.setOnClickListener {
+            dialog.dismiss()
+        }
+
+    }
+
+    private fun showResetDialog() {
+        val dialogBinding =
+            CustomDialogResetDhikrBinding.inflate(LayoutInflater.from(requireContext()))
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(dialogBinding.root)
+
+        val window: Window = dialog.window!!
+        window.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window.setGravity(Gravity.CENTER)
+
+        dialog.show()
+
+        dialogBinding.yesId.setOnClickListener {
+            countTasbeeh = 0
+            binding.countId.text = countTasbeeh.toString()
+            binding.dhikrNameId.text = ""
+            binding.dhikrNameId.visibility = View.GONE
+            binding.addDhikrId.visibility = View.VISIBLE
+            dhikrItem = null
+            dialog.dismiss()
+        }
+
+        dialogBinding.noId.setOnClickListener {
+            dialog.dismiss()
+        }
+
+    }
+    private fun showStartOverDialog() {
+        val dialogBinding =
+            CustomDialogStartOverBinding.inflate(LayoutInflater.from(requireContext()))
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(dialogBinding.root)
+
+        val window: Window = dialog.window!!
+        window.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window.setGravity(Gravity.CENTER)
+
+        dialog.show()
+
+        dialogBinding.yesId.setOnClickListener {
+            countTasbeeh = 0
+            binding.countId.text = countTasbeeh.toString()
+            dhikrItem?.dhikrCount=0
+            dialog.dismiss()
+        }
+
+        dialogBinding.noId.setOnClickListener {
+            countTasbeeh = 0
+            binding.countId.text = countTasbeeh.toString()
+            binding.dhikrNameId.text = ""
+            binding.dhikrNameId.visibility = View.GONE
+            binding.addDhikrId.visibility = View.VISIBLE
+            dhikrItem = null
             dialog.dismiss()
         }
 
@@ -257,44 +320,44 @@ class TasbeehCounterFragment : Fragment(),DhikrSelectionListner {
         val dhikrList = Paper.book().read<ArrayList<Dhikr?>>("Dhikr_LIST", ArrayList())
         val index = dhikrList?.indexOfFirst { it?.dhikrNAme == updatedDhikr?.dhikrNAme }
         if (index != -1) {
+            val currentTime = Date()
+            val dateFormat = SimpleDateFormat("hh:mm a")
+            val formattedTime = dateFormat.format(currentTime)
             dhikrList?.get(index!!)?.dhikrCount = updatedDhikr?.dhikrCount ?: 0
+            dhikrList?.get(index!!)?.time=formattedTime
             Paper.book().write("Dhikr_LIST", dhikrList!!)
-        }
-        else{
-            val dhikrList=ArrayList<Dhikr>()
+        } else {
+            val dhikrList = ArrayList<Dhikr>()
             dhikrList.add(updatedDhikr!!)
-           Paper.book().write("Dhikr_LIST",dhikrList)
+            Paper.book().write("Dhikr_LIST", dhikrList)
         }
-        Toast.makeText(requireContext(), "Saved in history successfully!!", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(requireContext(), "Saved in history successfully!!", Toast.LENGTH_SHORT)
+//            .show()
 
-        countTasbeeh=0
-        binding.countId.text=countTasbeeh.toString()
-        binding.dhikrNameId.text=""
-        binding.dhikrNameId.visibility=View.GONE
-        binding.addDhikrId.visibility=View.VISIBLE
-        dhikrItem=null
+        showStartOverDialog()
+
+
     }
 
-    override fun onDismiss(isDismissed: Boolean, isDhikrSelected:Boolean) {
+    override fun onDismiss(isDismissed: Boolean, isDhikrSelected: Boolean) {
         if (isDismissed) {
             isBottomSheetVisible = false
         }
-        if(isDhikrSelected){
-            binding.addDhikrId.visibility=View.INVISIBLE
-            binding.dhikrNameId.visibility=View.VISIBLE
+        if (isDhikrSelected) {
+            binding.addDhikrId.visibility = View.INVISIBLE
+            binding.dhikrNameId.visibility = View.VISIBLE
 
-        }
-        else{
-            binding.addDhikrId.visibility=View.VISIBLE
-            binding.dhikrNameId.visibility=View.INVISIBLE
+        } else {
+            binding.addDhikrId.visibility = View.VISIBLE
+            binding.dhikrNameId.visibility = View.INVISIBLE
         }
     }
 
     override fun onDhikrSelected(dhikr: Dhikr?) {
-        binding.dhikrNameId.text=dhikr?.dhikrNAme
-        this.dhikrItem=dhikr
+        binding.dhikrNameId.text = dhikr?.dhikrNAme
+        this.dhikrItem = dhikr
     }
 
 }
 
-data class Tasbeeh(val dhikarName:String?,val countValue:String?,val savedDate:String?)
+data class Tasbeeh(val dhikarName: String?, val countValue: String?, val savedDate: String?)
